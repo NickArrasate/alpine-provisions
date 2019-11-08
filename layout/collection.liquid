@@ -6,8 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_accent }}">
+  {% include 'favicon-helper-alpine' %}
   <link rel="canonical" href="{{ canonical_url }}">
-  {% include 'favicon-helper-pangea' %}
+
   {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
   {%- endif -%}
@@ -33,8 +34,8 @@
 
   {% include 'social-meta-tags' %}
   {{ 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' | stylesheet_tag }}
-  {% include 'style-tags' %}
   {% include 'css-variables' %}
+  {% include 'style-tags-alpine' %}
 
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', '');
@@ -51,6 +52,7 @@
   <!-- yotpo -->
   <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/EvTz8BbF3CWzV0DmGk0unt70PaWGAfF3nuEHdmV9/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
 
+
   {{ 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js' | script_tag }}
   {{ "vendor.js" | asset_url | script_tag }}
 
@@ -61,19 +63,13 @@
   {{ content_for_header }}
 </head>
 
-<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} template-alpine">
 
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
   <main role="main" id="MainContent" class="alternate-main">
     {{ content_for_layout }}
   </main>
-{% if page.url contains "alpine" or collection.url contains "alpine" %}
-  {% section 'footer-alpine' %}
-{% elsif page.url contains "chasen" or collection.url contains "chasen"  %}
-  {% section 'footer-chasen' %}
-{% else %}
-  {% section 'footer' %}
-{% endif %}
+{% section 'footer-alpine' %}
 {{ "theme.js" | asset_url | script_tag }}
 {{ '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css' | stylesheet_tag }}
 {{ '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js' | script_tag }}
@@ -87,6 +83,32 @@
       });
     });
 </script>
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection pages */
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+    var newTags = [];
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    if (newTags.length) {
+      var query = newTags.join('+');
+      window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('/' + 'tag', '/' + query);
+    }
+    else {
+      {% if collection.handle %}
+      window.location.href = '/collections/{{ collection.handle }}';
+      {% elsif collection.products.first.type == collection.title %}
+      window.location.href = '{{ collection.title | url_for_type }}';
+      {% elsif collection.products.first.vendor == collection.title %}
+      window.location.href = '{{ collection.title | url_for_vendor }}';
+      {% endif %}
+    }
+  });
+</script>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5C5DH2"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -96,6 +118,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% include "resci_page-view" %}
 <!-- End ReSci -->
 <!--START Pepperjam CODE--> <noscript> <iframe src="//nojscontainer.pepperjam.com/253429430.html" width="1" height="1" frameborder="0"></iframe> </noscript> <script> (function(){ var a=document.createElement("script"); a.type="text/javascript", a.async=!0, a.src="//container.pepperjam.com/253429430.js"; var b=document.getElementsByTagName("head")[0]; if(b) b.appendChild(a,b); else { var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b) } })(); </script> <!--END Pepperjam CODE-->
-
+{% include 'reddyyeti' %}
 </body>
 </html>
