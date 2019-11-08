@@ -1,0 +1,71 @@
+<div class="contained">
+  <div class="row">
+    <div class="col-12 d-flex flex-column justify-content-between">
+      <div style="padding: 4em 2em;max-width: 1024px; margin: 0 auto;" class="d-flex jusify-content-center">
+        <div class="container">
+        {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if section.settings.image_1 != blank %}
+  <div class="row" style="padding-bottom: 2em;">
+    <div class="col-4 text-center" style="padding: 1em;">
+      <img src='{{ section.settings.image_1.src | img_url: '800x800'}}' />
+    </div>
+    <div class="col-4 text-center" style="padding: 1em;">
+      <img src='{{ section.settings.image_2.src | img_url: '800x800'}}' />
+    </div>
+    <div class="col-4 text-center" style="padding: 1em;">
+      <img src='{{ section.settings.image_3.src | img_url: '800x800'}}' />
+    </div>
+  </div>
+{% endif %}
+
+</div>
+{% if section.settings.image_break != blank %}
+<div style="background-color: #000;"  style="margin-bottom: 2em;">
+  <div class="about-image-break" style="background-image: url('{{ section.settings.image_break | img_url: '1200x1200'}}'); background-position:center; background-size: cover; background-repeat: no-repeat; height: 300px;">
+  </div>
+  <div class="row d-flex flex-column align-items-center justify-content-center">
+    <div class="col-12 d-flex" style="padding: 4em 2em;max-width: 1024px;">
+        <h2 class="genuine text-center text-white">{{ section.settings.blockquote }}</h2>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+    {
+        "settings":[
+            {
+              "type": "text",
+              "id": "title_1",
+              "label": "Section 1 Title",
+              "default": "Alpine Provisions"
+            },
+            {
+              "type": "image_picker",
+              "id": "image_break",
+              "label": "Image Break Bottom"
+            },
+            {
+              "type" : "image_picker",
+              "id": "image_1",
+              "label": "image row 1"
+            },
+            {
+              "type" : "image_picker",
+              "id": "image_2",
+              "label": "image row 2"
+            },
+            {
+              "type" : "image_picker",
+              "id": "image_3",
+              "label": "image row 3"
+            }
+        ]
+    }
+
+{% endschema %}

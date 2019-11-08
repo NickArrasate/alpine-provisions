@@ -1,0 +1,7 @@
+development:
+  password: b3e964b69c44574625456347e4a74c30
+  theme_id: "12622434598"
+  store: store-dev.myshopify.com
+  ignore_files:
+   # ignore the settings_data.json once store is configured
+   # - config/settings_data.json

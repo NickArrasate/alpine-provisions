@@ -1,0 +1,653 @@
+/*================ Media Query Mixin ================*/
+@mixin media-query($media-query) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $grid-breakpoints {
+    $name: nth($breakpoint, 1);
+    $declaration: nth($breakpoint, 2);
+
+    @if $media-query == $name and $declaration {
+      $breakpoint-found: true;
+
+      @media only screen and #{$declaration} {
+        @content;
+      }
+    }
+  }
+
+  @if $breakpoint-found == false {
+    @warn 'Breakpoint "#{$media-query}" does not exist';
+  }
+}
+
+/*================ VARIABLES ================*/
+/*============================================================================
+  Grid Breakpoints and Class Names
+    - Do not change the variable names
+==============================================================================*/
+$grid-medium: 750px;
+$grid-large: 990px;
+$grid-widescreen: 1400px;
+$grid-gutter: 30px;
+$grid-gutter-mobile: 22px;
+
+$small: 'small';
+$medium: 'medium';
+$medium-down: 'medium-down';
+$medium-up: 'medium-up';
+$large: 'large';
+$large-down: 'large-down';
+$large-up: 'large-up';
+$widescreen: 'widescreen';
+
+/*============================================================================
+  Generate breakpoint-specific column widths and push classes
+    - Default column widths: $grid-breakpoint-has-widths: ($small, $medium-up);
+    - Default is no push classes
+==============================================================================*/
+$grid-breakpoint-has-widths: ($small, $medium-up);
+$grid-breakpoint-has-push: ($small, $medium-up);
+ /*============================================================================
+   #Grid
+ ==============================================================================*/
+
+ // The `$grid-breakpoints` list is used to build our media queries.
+ // You can use these in the media-query mixin.
+ $grid-breakpoints: (
+   $small '(max-width: #{$grid-medium - 1})',
+   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
+   $medium-down '(max-width: #{$grid-large - 1})',
+   $medium-up '(min-width: #{$grid-medium})',
+   $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
+   $large-down '(max-width: #{$grid-widescreen - 1})',
+   $large-up '(min-width: #{$grid-large})',
+   $widescreen '(min-width: #{$grid-widescreen})'
+ );
+
+
+  /*============================================================================
+ brand font definitions
+ ==============================================================================*/
+ @import url('https://fonts.googleapis.com/css?family=Cabin');
+
+ @font-face {
+   font-family: 'Geniune Sans';
+   font-display: auto;
+   src: url('./Genuinesansserif-Regular.otf') format('opentype');
+   font-weight: normal;
+  }
+ @font-face {
+   font-family: 'Plantin Pro';
+   font-display: auto;
+   src: url('./PlantinMTPro-Regular.otf') format('opentype');
+   font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Plantin Pro Bold';
+    font-display: auto;
+    src: url('./PlantinMTPro-Bold.otf') format('opentype');
+    font-weight: bold;
+   }
+
+  //font-family: 'Cabin', sans-serif;
+
+
+  $brand-font-stack-header: 'Geniune Sans';
+  $brand-font-stack-body: 'Cabin';
+  $brand-font-stack-blog: 'Plantin Pro';
+  $brand-color-text: #000000;
+  //$brand-link-color-text: #1c1c1c;
+  $brand-color-accent-text: #ebbe1d;
+
+ #alpine-home, body.alpine, .alpine, .template-alpine, body.template-alpine {
+   font-family: $brand-font-stack-body;
+   color: $brand-color-text;
+   input,
+   textarea,
+   button,
+   select {
+     font-family: $brand-font-stack-body !important;
+     color: $brand-color-text;
+     line-height: 1.5;
+   }
+   a {
+     font-family: $brand-font-stack-body !important;
+   }
+   /*================ Headings ================*/
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     font-family: $brand-font-stack-header !important;
+     a {
+     }
+   }
+   // h1 {
+   //   @include media-query($small) {
+   //  }
+   // }
+   // h2 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h3 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h4 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h5 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h6 {
+   //   @include media-query($small) {
+   //   }
+   // }
+  .ap-bg {
+    background-image: url('{{ "alpine-pat-bg.jpg" | asset_url }}');
+    background-size: initial;
+    background-repeat: repeat;
+  }
+  .footer-lower{
+    border-top: 1px solid #eee;
+  }
+
+  .footer-lower{
+    border-top: 1px solid #eee;
+  }
+  a.btn, .btn-submit, .btn.collection-product-button, .btn.collection-product-button.subtle, .btn {
+    //box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
+    background-color: #454544;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    &.btn-alpine {
+      background-color: #fff;
+      color: #000;
+    }
+    &:focus, &:hover, &:visited {
+      outline: none;
+      border: none;
+    }
+  }
+  .btn.collection-product-button.subtle {
+    color: #fff !important;
+  }
+  div.top-nav-box > div.brand-navbar.brand-nav > div > form > div > button {
+    background: inherit;
+  }
+  #shopify-section-sort-bar {
+    background-color: #000;
+    // .filter {
+    //   color: #fff;
+    // }
+  }
+  .coll-filter{
+    background: transparent;
+    border: none;
+    color: white;
+    padding-right: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.1em;
+    outline:none;
+  }
+  .input-group-prepend {
+    .btn.btn-small {
+      color: #fff;
+    }
+  }
+  .collection-title {
+   margin-top: 0px;
+   text-transform: uppercase;
+  }
+  .collection-card {
+    text-align: center;
+    p {
+      margin: 1em 0 0;
+    }
+  }
+  .collection-subtitle {
+    font-family: 'Geniune Sans';
+  }
+  .header-menus.has-slider {
+    position: relative;
+  }
+  header>nav.navbar ul.navbar-nav li.nav-item a {
+    color: #000 !important;
+  }
+  header > nav.navbar {
+    max-height: 120px;
+    min-height: 120px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,.15);
+    .logo-image {
+      padding: 10px 0;
+    }
+    ul.navbar-nav {
+      align-items: center;
+      justify-content: flex-end;
+      list-style:none;
+      li.nav-item {
+        //padding: .5em 1em;
+        padding: .5em .75em;
+        font-size: 1.75em;
+        @media screen and (max-width: 850px){
+          font-size: 1.5em;
+        }
+        text-transform: uppercase;
+        color: white;
+        a {
+          color: white;
+          &:focus, &:visited, &:hover {
+            outline: none;
+            outline-color: transparent;
+            border: 0px;
+         }
+         &:hover, &:focus {
+         }
+        }
+      }
+      @include media-query($small) {
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+    }
+    .collection-category h4 {
+      text-transform: uppercase;
+      font-size: 1.2em;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-weight: normal;
+    }
+    li.dropdown-link {
+      text-transform: capitalize;
+      font-weight: normal;
+      font-family: 'Cabin';
+    }
+  }
+  .navbar-light.navbar-toggler, .navbar-toggler {
+   color: rgba(255,255,255,.95);
+   border-color: rgba(0,0,0,.1);
+   background-color: rgba(255,255,255,.6);
+   padding: .25rem .75rem;
+   font-size: 1.25rem;
+   line-height: 1;
+   border: none;
+   outline: none;
+   border-radius: 0;
+   &:hover, &:active, &:focus {
+     outline: none;
+   }
+  }
+  ///main nav
+  .nav-item.dropdown.show {
+    .dropdown-menu.show {
+      position: absolute;
+       z-index: 4000;
+       top: auto;
+       right: 0;
+       width: 100%;
+       max-width: fit-content;
+       margin: 0 auto;
+       top: auto;
+       text-align: right !important;
+       padding: 20px 0;
+      .dropdown-shop {
+        flex-direction: column;
+      }
+   }
+   &.shop {
+     .dropdown-menu.show {
+        position: absolute !important;
+        top: auto !important;
+        z-index: 4000;
+        top: auto;
+        right: 0;
+        width: 100%;
+        max-width: fit-content;
+        margin: 0 auto;
+        //text-align: right !important;
+        padding: 20px 0;
+     }
+ }
+ @include media-query($medium-down) {
+ .dropdown-menu.show {
+   position: fixed !important;
+   background-color: rgba(255,255,255,.9);
+   box-shadow: 0px 4px 6px rgba(0,0,0,.15);
+   background-image: none;
+   top: 170px !important;
+   max-width: 90%;
+   margin: 0 auto;
+   .dropdown-shop {
+     flex-direction: column;
+     align-items: flex-end;
+     }
+   }
+ &.shop {
+   .dropdown-menu.show {
+     position: fixed !important;
+     top: 170px !important;
+   .dropdown-shop {
+     flex-direction: column;
+     }
+   }
+ }
+}
+ @include media-query($small) {
+   &.shop {
+     .dropdown-menu.show {
+     max-height: 72vh;
+     max-width: 90%;
+     overflow-y: scroll;
+     -webkit-overflow-scrolling: touch;
+     scroll-behavior: smooth;
+     .dropdown-shop {
+       flex-direction: column !important;
+       }
+     }
+   }
+ }
+}
+.header-feature-wrap{
+  img {
+  }
+  .btn {
+    background: black;
+  }
+}
+.alpine-text-box{
+  text-align: center;
+  @include media-query($medium-up){
+    text-align: right;
+  }
+}
+.nopadbtm {
+  padding-bottom: 0;
+}
+.collection-list-card {
+  margin: 2em 0 4em;
+}
+.alpine-featured-blog {
+  min-height: 300px;
+  position: relative;
+  padding: 50px 0;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  .section-text {
+    z-index: 2;
+    position: inherit;
+  }
+  .article__date {
+    margin-bottom: 0;
+  }
+  p {
+    color: #fff;
+  }
+  header {
+    margin-bottom: 20px;
+  }
+  .article__author {
+    font-size: 1.25em;
+  }
+  h2 {
+    font-size: 2em;
+    text-transform: capitalize;
+  }
+  .article__grid-excerpt h4 {
+    font-size: 1.5em;
+  }
+  .btn.btn-alpine {
+    background: transparent;
+    color: #fff;
+  }
+  .blog-link {
+    text-transform: uppercase;
+    margin-top: 1em;
+    font-size: .9em;
+    color: #fff;
+  }
+}
+  .section-title-box {
+    position: relative;
+    left: -40px;
+    top: 15px;
+    transform: none;
+    background-color: #000000;
+    color: #fff;
+    padding: 1em 1em 1em 4em;
+    text-transform: uppercase;
+    max-width: 300px;
+    h5 {
+      margin: 0;
+    }
+  }
+  .alpine-collection-items .row {
+    background: #fff;
+  }
+  .slideshow {
+    overflow: hidden;
+    margin-bottom: 0;
+    // Make sure slides fill full height
+    .slideshow__slide,
+    .slick-list,
+    .slick-track {
+      height: 100%;
+    }
+    &.header-slideshow.slideshow--small {
+      //max-height: 250px;
+      padding-top: 0;
+    }
+
+    .slick-prev,
+    .slick-next {
+      top: 0;
+      height: 100%;
+      margin-top: 0;
+      width: 40px;
+    }
+
+    .slick-prev {
+      left: 0;
+    }
+
+    .slick-next {
+      right: 0;
+    }
+
+    // .slick-dots {
+    //   //bottom: $gutter-site-mobile;
+    //   text-align: center;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    //
+    //   // sass-lint:disable SelectorDepth
+    //   li button::before {
+    //     color: $color-slideshow-dots;
+    //   }
+    // }
+    }
+  .top-nav-box{
+    position: relative;
+  }
+  .top-nav-box.cart-nav-box{
+    position: relative;
+  }
+} //end alpine top level
+
+body.template-product.alpine > .ap-bg {
+  background-image: none !important;
+  background-color: #fff;
+}
+.offers-yellow-box{
+  display: block;
+  h4{
+    @include media-query($medium-down){
+      font-size: 1.2em;
+    }
+  }
+
+}
+.ritual-header {
+  padding-top: unset;
+  h2 {
+    text-transform: capitalize;
+    letter-spacing: normal;
+  }
+  &.slideshow--small{
+    height: 300px;
+  }
+  &.slideshow--medium{
+    height: 370px;
+  }
+  &.slideshow--large{
+    height: 600px;
+  }
+}
+.slideshow--small{
+  height: 300px;
+}
+.slideshow--medium{
+  height: 370px;
+}
+.slideshow--large{
+  height: 600px;
+}
+.slideshow__text-content{
+  position: absolute;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 250px;
+  z-index: 300;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.genuine {
+  font-family: $brand-font-stack-header;
+}
+
+.klaviyo-form{
+  div[class*="FormView"]{
+    padding: 0 !important;
+  }
+  div[class*="FormRow"]{
+    padding: 0 2em !important;
+    &:not(:first-child){
+      background-color: transparent !important;
+    }
+    &:not(:nth-child(2)){
+      background-color: transparent !important;
+    }
+    &:first-child, &:nth-child(2) {
+      //background-color: #000 !important;
+    }
+  }
+  p{
+    //color: #fff !important;
+    //font-family: $font-stack-body !important;
+  }
+  input{
+    border: none !important;
+    //font-family: $font-stack-body !important;
+  }
+  button {
+    color: #fff !important;
+    background-color: #000 !important;
+    height: unset;
+    margin-bottom: 10px !important;
+  }
+}
+  .product-section h1, .product-section .h1 {
+    font-family: $brand-font-stack-header;
+    color: #000;
+  }
+  .product-section h4, .product-section .h4 {
+    font-family: $brand-font-stack-blog !important;
+    color: #000;
+  }
+
+.blog-cat-bar {
+  background: #000;
+  min-height: 60px;
+}
+.blog-posted-by{
+  display: flex;
+  justify-content: flex-end;
+  p{
+    padding: 8px 16px;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+  }
+}
+.small-hide{
+  @include media-query($small) {
+    display: none !important;
+  }
+}
+.slideshow__text-content.small-show{
+  display: none;
+  max-height: unset !important;
+  background: unset !important;
+  @include media-query($small) {
+    display: block !important;
+  }
+  &.d-flex{
+    display: flex !important;
+  }
+  .header-title, .slideshow__subtitle{
+    font-size: 1.25em;
+    color: black !important;
+  }
+  .btn{
+    font-size: 10px;
+  }
+  img{
+    margin: unset;
+  }
+}
+.header-slider {
+ .carousel-item {
+   @include media-query($medium) {
+     margin-top: 0;
+   }
+   @include media-query($small) {
+     margin-top: 0;
+   }
+ }
+}
+.testimonial-text-box{
+  border: none;
+  p{
+    color: black;
+    font-family: $brand-font-stack-blog !important;
+    font-size: 18px;
+  }
+  p.testimonial-byline{
+    color: black;
+    font-size: 15px;
+  }
+  &:before{
+    display: none !important;
+  }
+  &:after{
+    display: none !important;
+  }
+}
+/// PRIVY OVERRIDES
+#privy-container{
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  z-index: -1000 !important;
+  visibility: hidden !important;
+}

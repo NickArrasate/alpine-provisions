@@ -1,0 +1,90 @@
+<div class="awards-subheader d-flex align-items-center" style="height: 131px; background-color: #83af9b;">
+    <div class="contained">
+    <p class="text-white text-center">For all press inquiries, please email <a href="mailto:support@pangeaorganics.com" class="text-white">support@pangeaorganics.com</a></p>
+    </div>
+</div>
+<div class="contained" style="padding: 4em; max-width: 1024px;">
+<ul class="nav nav-tabs product-tabs row" id="product-tab-control" role="tablist">
+      <li class="nav-item col-6">
+        <a class="nav-link active" id="tab-1" data-toggle="tab" href="#tab-1-content" role="tab" aria-controls="home" aria-selected="true">
+        Awards
+        </a>
+      </li>
+      <li class="nav-item col-6">
+        <a class="nav-link" id="tab-2" data-toggle="tab" href="#tab-2-content" role="tab" aria-controls="home" aria-selected="true">
+        Press
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content" id="product-tab">
+      <div class="tab-pane fade active show" id="tab-1-content" role="tabpanel" aria-labelledby="tab-1">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'award'%}
+      <h3 style="margin-top: 2em;">{{ block.settings.award_title }}</h3>
+      <div>
+      {{ block.settings.award_copy }}
+      </div>
+      {% endcase %}
+      {% endfor %}
+      </div>
+      <div class="tab-pane fade" id="tab-2-content" role="tabpanel" aria-labelledby="tab-1">
+       {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'press'%}
+      <h3 style="margin-top: 2em;">{{ block.settings.press_title }}</h3>
+      <div>
+        <a href="{{ block.settings.press_link }}" target="_blank">{{ block.settings.press_copy }}</a>
+        </div>
+      {% endcase %}
+      {% endfor %}
+      </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "settings":[
+    ],
+    "blocks": [
+        {
+        "type": "award",
+        "name": "Awards",
+        "settings": [
+            {
+            "id": "award_title",
+            "type": "text",
+            "label": "Award Title"
+            },
+            {
+            "id": "award_copy",
+            "type": "richtext",
+            "label": "Award Copy"
+            }
+        ]
+        },
+        {
+        "type": "press",
+        "name": "Press",
+        "settings": [
+            {
+            "id": "press_title",
+            "type": "text",
+            "label": "Press Title"
+            },
+            {
+            "id": "press_copy",
+            "type": "richtext",
+            "label": "Press Copy"
+            },
+            {
+            "id": "press_link",
+            "type": "url",
+            "label": "Press Link"
+            }
+        ]
+        }
+    ]
+}
+
+{% endschema %}

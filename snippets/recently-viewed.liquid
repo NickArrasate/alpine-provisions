@@ -1,0 +1,61 @@
+<script src="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js" type="text/javascript"></script>
+{{ 'recent-products.js' | asset_url | script_tag }}
+<script>
+Shopify.Products.recordRecentlyViewed();
+</script>
+<header class="section-header" style="margin-top:20px;">
+  <h5 class="section-header__title recommend-title">Recently Viewed</h5>
+</header>
+<div id="recentSlider" class="recent-carousel glow-carousel carousel slide w-100" data-ride="carousel">
+  <div  id="recently-viewed-products"  style="display:none" class="collection clearfix carousel-inner w-100" role="listbox">
+  </div>
+  <a class="carousel-control-prev" href="#recentSlider" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#recentSlider" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+  </a>
+</div>
+
+{% raw %}
+<script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+<div class="carousel-item inner-item recent-slide ritual-slide">
+<div id="product-${handle}" class="col-6">
+  <div class="image" style="padding: .75em; text-align: center;">
+    <a href="${url}" class="cy">
+      <img src="${Shopify.Products.resizeImage(featured_image, "large")}" />
+    </a>
+  </div>
+  <div class="details text-center" style="padding: .75em;"">
+    <a href="${url}">
+      <p style="margin-bottom: 1em;" class="title">${title}</p>
+      <a class="btn collection-product-button subtle" href="${url}">${Shopify.formatMoney(price)}</a>
+    </a>
+  </div>
+</div>
+</div>
+</script>
+{% endraw %}
+
+<script>
+Shopify.Products.showRecentlyViewed( { howManyToShow:12,wrapperId:"recently-viewed-products", onComplete: function(){
+  var carouselInners = $('.recent-slide');
+  carouselInners.first().addClass('active');
+  $('.recent-slide').each(function(){
+      var next = $(this).next();
+      if (!next.length) {
+      next = $(this).siblings(':first');
+      }
+      next.children(':first-child').clone().appendTo($(this));
+      for (var i=0;i<2;i++) {
+          next=next.next();
+          if (!next.length) {
+            next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+        }
+    })
+} } );
+</script>

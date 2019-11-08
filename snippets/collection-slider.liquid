@@ -1,0 +1,57 @@
+<div class="slideshow-wrapper slider single-item">
+    <button type="button" class="visually-hidden slideshow__pause" data-id="{{ section.id }}" aria-live="polite">
+      <span class="slideshow__pause-stop">
+        {% include 'icon-pause' %}
+        <span class="icon__fallback-text">{{ 'sections.slideshow.pause_slideshow' | t }}</span>
+      </span>
+      <span class="slideshow__pause-play">
+        {% include 'icon-play' %}
+        <span class="icon__fallback-text">{{ 'sections.slideshow.play_slideshow' | t }}</span>
+      </span>
+    </button>
+
+    <div class="slideshow header-slideshow slideshow--{{ section.settings.slideshow_height }} ritual-header" id="Slideshow-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed }}">
+
+                {% for block in section.blocks %}
+
+        <div class=" slideshow__slide slideshow__slide--{{ block.id }} {% if forloop.first %}slick-active{% endif %}{% if is_background_video %} slideshow__slide--background-video{% endif %}" {{ block.shopify_attributes }}>
+                  {%- assign is_background_video = false -%}
+                  {% if block.type == 'video' %}
+                    {% if block.settings.video_type == 'background' or block.settings.video_type =='background-chrome' %}
+                      {%- assign is_background_video = true -%}
+                    {% endif %}
+                  {% endif %}
+            <div class="slideshow__image box ratio-container lazyload{% unless forloop.first == true %} lazypreload{% endunless %} js"
+                 data-bgset="{% include 'bgset', image: block.settings.image %}"
+                 data-sizes="auto"
+                 data-parent-fit="cover"
+                 style="background-position: {{ block.settings.alignment }};{% if forloop.first == true %} background-image: url('{{ block.settings.image | img_url: '300x300' }});{% endif %}">
+            </div>
+          <div class="slideshow__text-wrap{% if block.settings.title != blank or block.settings.subheading != blank %} slideshow__overlay{% endif %} " style="">
+            <div class="overlay-box" style="background-color: {{ block.settings.color_image_overlay }}; opacity: {{ block.settings.color_image_opacity | times: 0.01 }};">
+            </div>
+            <div class="slideshow__text-content {% if block.settings.justification == 'left' %}left{% elsif block.settings.justification == 'right' %}right{% endif %} {% if forloop.first %}slick-active{% endif %}">
+              <div class="page-width">
+                <h2 class="collection-title">{{ collection.title }}</h2>
+                {% if current_tags != blank %}
+                {% for tag in current_tags %}
+                {% assign tag_mod = tag | handle | remove: 'filter-' | split: '-' %}
+                <h2 class="text-white">{% for word in tag_mod %}{{ word | capitalize }} {% endfor %}</h2>
+                {% endfor %}
+                {% endif %}
+                <h4 class="collection-subtitle text-white">{{ section.settings.subtitle  }}</h4>
+                <div class="ritual-header-box">
+                <div class="row d-flex align-items-center">
+                  <div class="col-9 text-left ritual-header-text">
+                  {{ section.settings.header_text }}
+                  <a data-toggle="modal" data-target="#myModal">{{ section.settings.header_link_text}}</a>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>

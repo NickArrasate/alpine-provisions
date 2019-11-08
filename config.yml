@@ -1,0 +1,16 @@
+# production:
+#   password: 42360b4bc9a4bf3b433c0ad9e12f4012
+#   theme_id: "32092749881"
+#   store: pangeaorganics.myshopify.com
+#   timeout: 60s
+#   ignore_files:
+#     - config/settings_data.json
+#     - theme.lock
+development:
+  password: 1da8e19e750365b35cfd895a7e003ee1
+  theme_id: "78987722812"
+  store: alpine-provisions-dev.myshopify.com
+  timeout: 60s
+  ignore_files:
+    - config/settings_data.json
+    - theme.lock

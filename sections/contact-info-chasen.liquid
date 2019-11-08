@@ -1,0 +1,22 @@
+<div class="contained" style="padding: 50px 0;">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-4 d-flex flex-column align-items-center justify-content-start">
+            <p>{{ section.settings.main_text }}</p>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "settings":[
+            {
+                "type" : "text",
+                "id": "main_text",
+                "label": "Main Text",
+                "default": "Are you interested in becoming a wholesaler? Do you have questions, comments or feedback? Say hello using the comment box below."
+            }
+
+        ]
+    }
+
+{% endschema %}

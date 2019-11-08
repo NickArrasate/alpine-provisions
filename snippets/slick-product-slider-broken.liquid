@@ -1,0 +1,66 @@
+
+   <div class="slideshow-wrapper slider multiple-items">
+    <button type="button" class="visually-hidden slideshow__pause" data-id="{{ section.id }}" aria-live="polite">
+      <span class="slideshow__pause-stop">
+        {% include 'icon-pause' %}
+        <span class="icon__fallback-text">{{ 'sections.slideshow.pause_slideshow' | t }}</span>
+      </span>
+      <span class="slideshow__pause-play">
+        {% include 'icon-play' %}
+        <span class="icon__fallback-text">{{ 'sections.slideshow.play_slideshow' | t }}</span>
+      </span>
+    </button>
+
+
+{% comment %} forloop here {% endcomment %}
+
+<div class=" slideshow__slide slideshow__slide--{{ block.id }}">
+    <div class="product-slider-image lazyload{% unless forloop.first == true %} lazypreload{% endunless %} js" >
+    {% include 'responsive-image' with
+      image: featured_image,
+      max_width: 700,
+      max_height: 800
+    %}
+    </div>
+  <p>{{ block_product.title | default: onboarding_title }}</p>
+  <a class="btn collection-product-button" href="{{ block_product.url | within: collection }}">
+    {% if block_product.available %}
+      {% if block_product.compare_at_price > block_product.price %}
+
+        {% if block_product.price_varies %}
+          {%- assign sale_price = block_product.price | money -%}
+          {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+        {% else %}
+          {{ 'products.product.on_sale' | t }}
+          {{ block_product.price | money }}
+        {% endif %}
+
+      {% else %}
+
+      {% if block_product.price_varies %}
+        {%- assign price = block_product.price | money -%}
+        {{ 'products.product.from_text_html' | t: price: price }}
+      {% else %}
+        {{ block_product.price | money }}
+      {% endif %}
+
+    {% endif %}
+
+    {% if block_product.compare_at_price > block_product.price %}
+      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+      <s>{{ block_product.compare_at_price | money }}</s>
+    {% endif %}
+
+    {% else %}
+      {{ 'products.product.sold_out' | t }}
+    {% endif %}
+  </a>
+    </div>
+
+         {% comment %} $('.multiple-items').slick({
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 50000
+        }); {% endcomment %}

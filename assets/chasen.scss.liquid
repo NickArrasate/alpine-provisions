@@ -1,0 +1,573 @@
+/*================ Media Query Mixin ================*/
+@mixin media-query($media-query) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $grid-breakpoints {
+    $name: nth($breakpoint, 1);
+    $declaration: nth($breakpoint, 2);
+
+    @if $media-query == $name and $declaration {
+      $breakpoint-found: true;
+
+      @media only screen and #{$declaration} {
+        @content;
+      }
+    }
+  }
+
+  @if $breakpoint-found == false {
+    @warn 'Breakpoint "#{$media-query}" does not exist';
+  }
+}
+
+/*================ VARIABLES ================*/
+/*============================================================================
+  Grid Breakpoints and Class Names
+    - Do not change the variable names
+==============================================================================*/
+$grid-medium: 750px;
+$grid-large: 990px;
+$grid-widescreen: 1400px;
+$grid-gutter: 30px;
+$grid-gutter-mobile: 22px;
+
+$small: 'small';
+$medium: 'medium';
+$medium-down: 'medium-down';
+$medium-up: 'medium-up';
+$large: 'large';
+$large-down: 'large-down';
+$large-up: 'large-up';
+$widescreen: 'widescreen';
+
+/*============================================================================
+  Generate breakpoint-specific column widths and push classes
+    - Default column widths: $grid-breakpoint-has-widths: ($small, $medium-up);
+    - Default is no push classes
+==============================================================================*/
+$grid-breakpoint-has-widths: ($small, $medium-up);
+$grid-breakpoint-has-push: ($small, $medium-up);
+ /*============================================================================
+   #Grid
+ ==============================================================================*/
+
+ // The `$grid-breakpoints` list is used to build our media queries.
+ // You can use these in the media-query mixin.
+ $grid-breakpoints: (
+   $small '(max-width: #{$grid-medium - 1})',
+   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
+   $medium-down '(max-width: #{$grid-large - 1})',
+   $medium-up '(min-width: #{$grid-medium})',
+   $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
+   $large-down '(max-width: #{$grid-widescreen - 1})',
+   $large-up '(min-width: #{$grid-large})',
+   $widescreen '(min-width: #{$grid-widescreen})'
+ );
+
+
+  /*============================================================================
+ brand font definitions
+ ==============================================================================*/
+ @font-face {
+   font-family: 'Josefin Sans';
+   font-display: auto;
+   src: url('./JosefinSans-Bold.ttf') format('truetype');
+   font-weight: bold;
+  }
+ @font-face {
+   font-family: 'Josefin Sans';
+   font-display: auto;
+   src: url('./JosefinSans-Light.ttf') format('truetype');
+   font-weight: lighter;
+  }
+ @font-face {
+   font-family: 'Josefin Sans';
+   font-display: auto;
+   src: url('./JosefinSans-Regular.ttf') format('truetype');
+   font-weight: normal;
+  }
+
+  $brand-font-stack-header: 'Josefin Sans';
+  $brand-font-stack-body: 'Josefin Sans';
+  $brand-color-text: #1c1c1c;
+  //$brand-link-color-text: #1c1c1c;
+  $brand-color-accent-text: #ebbe1d;
+
+ #chasen-stone-home, body.chasen, .chasen, .template-chasen, body.template-chasen {
+   font-family: $brand-font-stack-body;
+   color: $brand-color-text;
+   input,
+   textarea,
+   button,
+   select {
+     font-family: $brand-font-stack-body !important;
+     color: $brand-color-text;
+     line-height: 1.5;
+   }
+   a {
+     font-family: $brand-font-stack-body !important;
+   }
+   /*================ Headings ================*/
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     font-family: $brand-font-stack-header !important;
+     a {
+     }
+   }
+   // h1 {
+   //   @include media-query($small) {
+   //  }
+   // }
+   // h2 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h3 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h4 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h5 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   // h6 {
+   //   @include media-query($small) {
+   //   }
+   // }
+   .ritual-header {
+    h2 {
+      //text-transform: capitalize;
+      letter-spacing: normal;
+    }
+    &.slideshow--small{
+      height: 250px;
+    }
+    &.slideshow--medium{
+      height: 350px;
+    }
+    &.slideshow--large{
+      height: 550px;
+    }
+  }
+  .logo-image{
+    max-height: 100%;
+    img{
+      max-height: 92px;
+    }
+  }
+  .header-menus.has-slider{
+    padding: 1em 0;
+    z-index: 31;
+  }    /*================ #Philosophy ================*/
+   .philopsphy {
+     // styles here
+   }
+   // Instagram feed ================================================/
+   .instagram-image {
+     background: black;
+     img {
+       width: 100%;
+     }
+   }
+   .instagram-overlay-icon {
+     img {
+       width: inherit;
+     }
+   }
+   .form-control.product-form-quantity, .form-control.variant-selector {
+     background-color: #000;
+     font-weight: bold;
+   }
+   
+   a.btn, .btn-submit, .btn.collection-product-button {
+     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5) !important;
+     background-color: #101112;
+     color: $brand-color-accent-text;
+     font-weight: bold;
+     border: none;
+     &.btn-chasen {
+       background-color: #fff;
+       color: #000;
+     }
+     &:focus, &:hover, &:visited {
+       outline: none;
+       border: none;
+     }
+   }
+   .input-group-prepend {
+     .btn.btn-small {
+       color: #fff;
+     }
+   }
+   .collection-title {
+    //margin-top: -20px;
+    text-transform: uppercase;
+    @include media-query($small){
+      font-size: 2.5em;
+    }
+   }
+   .collection-card {
+     text-align: center;
+     p {
+       margin: 1em 0 0;
+     }
+   }
+   .collection-product-button.subtle {
+     color: #ebbe1d !important;
+   }
+   .collection-subtitle {
+   }
+   #shopify-section-sort-bar {
+     background-color: #000;
+     // .filter {
+     //   color: #fff;
+     // }
+   }
+   .coll-filter{
+     background: transparent;
+     border: none;
+     color: white;
+     padding-right: 4px;
+     text-transform: uppercase;
+     font-weight: bold;
+     font-size: 1.1em;
+     outline:none;
+   }
+   .product-nav-list{
+     .nav-item a{
+       color: white !important;
+     }
+   }
+   .dropdown-menu.show{
+     // left: auto;
+     // background-color: rgba(255,255,255,.9);
+     // box-shadow: 0px 4px 6px rgba(0,0,0,.15);
+     // border: 0;
+     // padding: 20px 50px;
+     top: 60px;
+     right: -220%;
+     top: 60px;
+   }
+   .footer-wrapper {
+     color: $brand-color-accent-text;
+     li a {
+       color: $brand-color-accent-text;
+     }
+   }
+   .footer-upper .footer-nav {
+    font-size: 12pt;
+  }
+  .chasen-home-intro-section {
+    padding: 40px;
+    h2 {
+      margin: 1em 0;
+    }
+    @include media-query($small) {
+      padding: 40px;
+      h2 {
+        margin: 0 0 1em;
+      }
+    }
+  }
+  .chasen-home-testimonial-section {
+    margin-top: -180px;
+    padding: 240px 120px 120px;
+    //color: #ebbe1d;
+    h2, h2 p {
+      //font-family: 'JosefinSans';
+      color: #ebbe1d;
+    }
+    .cite {
+      font-family: 'DIN';
+      font-size: 1em;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 4;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+    }
+    @include media-query($small) {
+      padding: 40px 20px;
+      margin-top: 0;
+    }
+  }
+  .chasen-home-video-section {
+    //margin-top: -180px;
+    padding: 0 60px 120px;
+    color: #fff;
+    .row {
+      align-items: center;
+    }
+    .embed-container {
+      margin: 0 0 2em;
+    }
+    @include media-query($small) {
+      padding: 40px;
+      .embed-container {
+        margin: 4em 0 2em;
+      }
+    }
+  }
+}
+.blog-cat-bar {
+  background: #000;
+  min-height: 60px;
+}
+.blog-posted-by{
+  display: flex;
+  justify-content: flex-end;
+  p{
+    padding: 8px 16px;
+    background-color: #ebbe1d;
+    color: #000;
+  }
+}
+
+.klaviyo-form{
+  div[class*="FormView"]{
+    padding: 0 !important;
+  }
+  div[class*="FormRow"]{
+    padding: 0 2em !important;
+    &:not(:first-child){
+      background-color: rgba(0,0,0,.4) !important;
+    }
+    &:not(:nth-child(2)){
+      background-color: rgba(0,0,0,.4) !important;
+    }
+    &:first-child, &:nth-child(2) {
+      background-color: #000 !important;
+    }
+  }
+}
+
+// Product Page ===================================/
+.chasen {
+  .related-products-col {
+    margin-top: 0px;
+  }
+}
+
+// Collection Page ===================================/
+.chasen-featured {
+  .chasen-collection {
+    padding-top: 0px;
+  }
+}
+//==== Chasen Shop =============/
+.chasen-store-content{
+
+
+}
+.chasen-content-background{
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+.text-chasen-yellow, .text-chasen-yellow p{
+  color: #ebbe1d;
+
+}
+.text-chasen-yellow, .text-chasen-intro{
+  @include media-query($small){
+    text-align: center;
+    padding: 1em 2em;
+  }
+}
+.chasen-content-foreground{
+  position:relative;
+  z-index: 1;
+  display: flex;
+  .text-left{
+    padding: 1em;
+  }
+  @include media-query($small){
+    display: unset;
+  }
+}
+#chasen-stone-shop{
+  .featured-collection{
+    padding-bottom: 3em;
+  }
+.chasen-content-background{
+  display: flex;
+  flex-direction: row;
+  @include media-query($small){
+    display: none;
+  }
+  .outer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .short{
+      flex: 1;
+      background: white;
+      min-height: 60px;
+    }
+    .tall{
+      flex: 8;
+      background: black;
+    }
+  }
+}
+.chasen-content-foreground{
+  display: flex;
+  flex-direction: row;
+  @include media-query($small){
+    display: block;
+  }
+  .outer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .short{
+    flex: 1;
+    background: transparent;
+  }
+  .tall{
+    flex: 4;
+    background: transparent;
+  }
+  .outer.text{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    @include media-query($small){
+      display: block;
+    }
+    .short{
+      flex: 1;
+      background: transparent;
+      min-height: 60px;
+      @include media-query($small){
+        display: none;
+      }
+    }
+    .tall{
+      flex: 4;
+      background: transparent;
+    }
+  }
+  .outer img {
+    max-width: 490px;
+  }
+}
+}
+.chasen-store-testimonial-section {
+  //margin-top: -180px;
+  padding: 40px 10px 100px;
+  //color: #ebbe1d;
+  h2, h2 p {
+    //font-family: 'JosefinSans';
+    color: #ebbe1d;
+  }
+  .cite {
+    font-family: 'DIN';
+    font-size: 1em;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 4;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+  @include media-query($small) {
+    padding: 40px 20px;
+    margin-top: 0;
+  }
+}
+.chasen-home-intro-section{
+  .chasen-content-background{
+    display: flex;
+    flex-direction: row;
+    @include media-query($small){
+      display: none;
+    }
+    .outer{
+      display: flex; flex-direction: column; flex: 1;
+      .short{
+        flex: 1; background: #1c1c1c;
+      }
+      .tall{
+        flex: 6; background: white;
+      }
+    }
+
+  }
+  .chasen-content-foreground{
+    flex-direction: row;
+    @include media-query($small){
+      display: block;
+    }
+    .outer{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      .tall{
+        flex: 8;
+        background: transparent;
+        display: flex;
+        align-items: center;
+      }
+      .short{
+        flex: 1;
+        background: transparent;
+        min-height: 60px;
+        @include media-query($small){
+          display: none;
+        }
+      }
+    }
+    .outer.text{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      @include media-query($medium){
+        display: block;
+      }
+      .tall{
+        flex: 4;
+        background: transparent;
+      }
+      .short{
+        flex: 1;
+        background: transparent;
+      }
+    }
+  }
+}
+.header-slider {
+ .carousel-item {
+   @include media-query($medium) {
+     margin-top: 0;
+   }
+   @include media-query($small) {
+     margin-top: 0;
+   }
+ }
+}
+/// PRIVY OVERRIDES
+#privy-container{
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  z-index: -1000 !important;
+  visibility: hidden !important;
+}

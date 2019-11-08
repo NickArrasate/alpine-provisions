@@ -1,0 +1,156 @@
+<div class="row" style="background-color: {{ section.settings.text_box_bg }}; padding:4em;">
+    <div class="col-12 contained philosophy-intro">
+        <h3>{{section.settings.page_intro_title}}</h3>
+        <h4 class="">{{section.settings.page_intro_copy}}</h4>
+    </div>
+</div>
+
+<div class="row img-blocks-sq">
+    {% for block in section.blocks %}
+        <div class="col" style="background-image: url('{{ block.settings.image.src | img_url: '300x300' }}'); background-size: cover; background-position: center;"></div>
+    {% endfor %}
+</div>
+
+
+{% capture image_layout_1 %}
+<div class="col-md-3 col-4" style="background-image: url('{{ section.settings.alt_section_image | img_url: '800x800' }}'); background-size: cover; background-position: center;"></div>
+{% endcapture %}
+{% capture image_layout_2 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.bottom_section_image | img_url: '800x800' }}'); background-size: cover; background-position: center;"></div>
+{% endcapture %}
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+{% if section.settings.layout == 'left' %}
+    {{ image_layout_1 }}
+{% endif %}
+<div class="col-md-9 col-8 d-flex align-items-center justify-content-center {% if section.settings.layout == 'left' %}text-left{% else %}text-right{% endif %}" style="padding: 3em;">
+    <div><p>{{ section.settings.alt_text }}</p></div>
+</div>
+{% if section.settings.layout == 'right' %}
+    {{ image_layout_1 }}
+{% endif %}
+</div>
+
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg }}; min-height: 500px; align-items= center;">
+{% if section.settings.layout2 == 'left' %}
+    {{ image_layout_2 }}
+{% endif %}
+<div class="col-md-9 col-sm-8 d-flex align-items-center justify-content-center {% if section.settings.layout == 'left' %}text-left{% else %}text-right{% endif %}" style="padding: 3em;">
+    <div><p class="">{{ section.settings.bottom_text }}</p></div>
+</div>
+{% if section.settings.layout2 == 'right' %}
+    {{ image_layout_2 }}
+{% endif %}
+</div>
+{% comment %}
+<div class="row" style="background-color: {{ section.settings.text_box_bg }}; min-height: 500px;">
+{% if section.settings.layout == 'right' %}
+    {{ image_layout_2 }}
+{% endif %}
+<div class="col-md-9 col-sm-7 d-flex align-items-center justify-content-center {% if section.settings.layout == 'right' %}text-left{% else %}text-right{% endif %}" style="padding: 3em;">
+    <p class=" text-left">{{ section.settings.bottom_text }}</p>
+</div>
+{% if section.settings.layout == 'left' %}
+    {{ image_layout_2 }}
+{% endif %}
+</div>
+{% endcomment %}
+
+{% schema %}
+    {
+    "name": "Philosophy Content",
+    "settings": [
+        {
+        "type": "color",
+        "id": "text_box_bg",
+        "label": "Main Text Box Background Colors"
+        },
+        {
+        "type": "color",
+        "id": "text_box_bg_alt",
+        "label": "Alt Text Box Background Colors"
+        },
+        {
+        "type": "text",
+        "id": "page_intro_title",
+        "label": "Page Intro Text"
+        },
+        {
+        "type": "richtext",
+        "id": "page_intro_copy",
+        "label": "Page intro copy"
+        },
+        {
+        "type": "image_picker",
+        "id": "alt_section_image",
+        "label": "Alt Section Image"
+        },
+        {
+        "type": "richtext",
+        "id": "alt_text",
+        "label": "Alt Section Text"
+        },
+        {
+        "type": "image_picker",
+        "id": "bottom_section_image",
+        "label": "Bottom Section Image"
+        },
+        {
+        "type": "richtext",
+        "id": "bottom_text",
+        "label": "Bottom Section Text"
+        },
+        {
+        "type": "select",
+        "id": "layout",
+        "label": "Top image alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+      "type": "select",
+      "id": "layout2",
+      "label": "Bottom image alignment",
+      "default": "right",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+    ],
+    "blocks": [
+    {
+        "name": "Images",
+        "type": "select",
+        "name": "Image Row item",
+        "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Ingredient Image"
+        }
+        ]
+    }
+    ],
+    "presets": [
+    {
+        "name": "Philosophy Content",
+        "category": "Features"
+    }
+    ]
+    }
+{% endschema %}

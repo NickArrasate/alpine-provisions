@@ -1,0 +1,36 @@
+<div class="row">
+<div class='col cherry-picking'>
+  <div class='inside row'>
+    <div class='col copy'>
+      <p>{{section.settings.copy}}</p>
+    </div>
+    <p class='small'>{{section.settings.sub}}</p>
+  </div>
+</div>
+</div>
+{% schema %}
+  {
+  "name": "Cart Cherry Pick",
+  "class": "brand-logos",
+  "settings": [
+    {
+        "type": "text",
+        "id": "copy",
+        "label": "Cherry Pick Box copy",
+        "default": "Shop other brands in the Pangea family and add items to the same basket.* "
+    },
+    {
+        "type": "text",
+        "id": "sub",
+        "label": "Cherry Pick Box sub-copy",
+        "default": "*One coupon code per basket"
+    }
+    ],
+  "presets": [
+  {
+    "name": "Cart Cherry-pick",
+    "category": "Cart"
+    }
+  ]
+}
+{% endschema %}

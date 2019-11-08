@@ -1,0 +1,62 @@
+{% if section.settings.show %}
+<div class="" style="width: 100%; padding: 1em 1.5em 0; background-color: {{ section.settings.background_color }};" >
+  <div class="contained">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-12">
+      <h3 class="text-center homepage-announcement-override" style="color: {{section.settings.text_color }}; margin :0;">{{section.settings.announcement_bar_text_2}}</h3>
+      <p class="text-center homepage-announcement-override" style="color: {{section.settings.text_color }}">{{section.settings.announcement_bar_text_1}}</p>
+    </div>
+    {% if section.settings.announcement_bar_text_3 %}
+    <div class="col-12">
+      <h5 class="text-center homepage-announcement-override" style="color: {{section.settings.text_color }}">{{section.settings.announcement_bar_text_3}}</h5>
+    </div>
+    {% endif %}
+  </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Banner Promotion",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "show",
+          "label": "Show this section?",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_2",
+          "label": "Announcement text top",
+          "info": "Top"
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_1",
+          "label": "Announcement text middle",
+          "info": "Middle"
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_3",
+          "label": "Announcement text center (use exclusively)",
+          "info": "Lower centered text"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Section Background"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Section Text Color"
+        }
+      ],
+  "presets": [{
+    "name": "Promotion Section",
+    "category": "Promotional"
+    }]
+  }
+{% endschema %}

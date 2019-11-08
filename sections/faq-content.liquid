@@ -1,0 +1,231 @@
+<div class="awards-subheader d-flex align-items-center" style="">
+    <div class="contained">
+        <p class="text-center">Here are some frequently asked questions about Pangea Organics</p>
+    </div>
+</div>
+<div class="contained">
+    <div class="row">
+    <div class="col-6 d-flex align-items-start justify-content-start">
+        <h3 class="faq-category-title">Allergies & Lifestyle</h3>
+    </div>
+    <div class="col-6">
+        <div id="accordian-1">
+    {% for block in section.blocks %}
+    {% if block.type == 'allergies' %}
+        <div class="faq-card">
+            <div class="" id="headingOne">
+            <h5 class="mb-0">
+            <a class="accordian-btn" data-toggle="collapse" data-target="#collapse-1-{{ forloop.index }}" aria-expanded="true" aria-controls="collapseOne">
+            <h5>{{ block.settings.faq_title }}</h5>
+            </a>
+            </h5>
+            </div>
+            <div id="collapse-1-{{ forloop.index }}" class="collapse" aria-labelledby="#collapse-1-{{ forloop.index }}" data-parent="#accordion-1">
+            <div class="card-body">
+            {{ block.settings.faq_copy }}
+            </div>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-6 d-flex align-items-start justify-content-start">
+        <h3 class="faq-category-title">Ingredients</h3>
+    </div>
+    <div class="col-6">
+    <div id="accordian-2">
+    {% for block in section.blocks %}
+    {% if block.type == 'ingredients' %}
+        <div class="faq-card">
+            <div class="" id="headingTwo">
+            <h5 class="mb-0">
+            <a class="accordian-btn" data-toggle="collapse" data-target="#collapse-2-{{ forloop.index }}" aria-expanded="true" aria-controls="collapseOne">
+            <h5>{{ block.settings.faq_title }}</h5>
+            </a>
+            </h5>
+            </div>
+            <div id="collapse-2-{{ forloop.index }}" class="collapse" aria-labelledby="#collapse-2-{{ forloop.index }}" data-parent="#accordion-2">
+            <div class="card-body">
+            {{ block.settings.faq_copy }}
+            </div>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-6 d-flex align-items-start justify-content-start">
+        <h3 class="faq-category-title">Certifications & Ratings</h3>
+    </div>
+    <div class="col-6">
+    <div id="accordian-3">
+    {% for block in section.blocks %}
+    {% if block.type == 'certifications' %}
+        <div class="faq-card">
+            <div class="" id="headingThree">
+            <h5 class="mb-0">
+            <a class="accordian-btn" data-toggle="collapse" data-target="#collapse-3-{{ forloop.index }}" aria-expanded="true" aria-controls="collapseOne">
+            <h5>{{ block.settings.faq_title }}</h5>
+            </a>
+            </h5>
+            </div>
+            <div id="collapse-3-{{ forloop.index }}" class="collapse" aria-labelledby="#collapse-3-{{ forloop.index }}" data-parent="#accordion-3">
+            <div class="card-body">
+            {{ block.settings.faq_copy }}
+            </div>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-6 d-flex align-items-start justify-content-start">
+        <h3 class="faq-category-title">Billing</h3>
+    </div>
+    <div class="col-6">
+        <div id="accordian-4">
+    {% for block in section.blocks %}
+    {% if block.type == 'billing' %}
+        <div class="faq-card">
+            <div class="" id="headingFour">
+            <h5 class="mb-0">
+            <a class="accordian-btn" data-toggle="collapse" data-target="#collapse-4-{{ forloop.index }}" aria-expanded="true" aria-controls="collapseOne">
+            <h5>{{ block.settings.faq_title }}</h5>
+            </a>
+            </h5>
+            </div>
+            <div id="collapse-4-{{ forloop.index }}" class="collapse" aria-labelledby="#collapse-4-{{ forloop.index }}" data-parent="#accordion-4">
+            <div class="card-body">
+            {{ block.settings.faq_copy }}
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-6 d-flex align-items-start justify-content-start">
+        <h3 class="faq-category-title">Website & Technical Issues</h3>
+    </div>
+    <div class="col-6">
+    <div id="accordian-5">
+    {% for block in section.blocks %}
+    {% if block.type == 'technical' %}
+        <div class="faq-card">
+            <div class="" id="headingFive">
+            <h5 class="mb-0">
+                <a class="accordian-btn" data-toggle="collapse" data-target="#collapse-5-{{ forloop.index }}" aria-expanded="true" aria-controls="collapseOne">
+            <h5>{{ block.settings.faq_title }}</h5>
+                </a>
+            </h5>
+            </div>
+            <div id="collapse-5-{{ forloop.index }}" class="collapse" aria-labelledby="#collapse-5-{{ forloop.index }}" data-parent="#accordion-5">
+            <div class="card-body">
+            {{ block.settings.faq_copy }}
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+    </div>
+</div>
+{% schema %}
+{
+    "settings":[
+    ],
+    "blocks": [
+        {
+        "type": "allergies",
+        "name": "Allergies & Lifestyle",
+        "settings": [
+            {
+            "id": "faq_title",
+            "type": "text",
+            "label": "FAQ title"
+            },
+            {
+            "id": "faq_copy",
+            "type": "text",
+            "label": "FAQ copy"
+            }
+        ]
+        },
+        {
+        "type": "ingredients",
+        "name": "Ingredients",
+        "settings": [
+            {
+            "id": "faq_title",
+            "type": "text",
+            "label": "FAQ title"
+            },
+            {
+            "id": "faq_copy",
+            "type": "text",
+            "label": "FAQ copy"
+            }
+        ]
+        },
+        {
+        "type": "certifications",
+        "name": "Certifications & Ratings",
+        "settings": [
+            {
+            "id": "faq_title",
+            "type": "text",
+            "label": "FAQ title"
+            },
+            {
+            "id": "faq_copy",
+            "type": "text",
+            "label": "FAQ copy"
+            }
+        ]
+        },
+        {
+        "type": "billing",
+        "name": "Billing",
+        "settings": [
+            {
+            "id": "faq_title",
+            "type": "text",
+            "label": "FAQ title"
+            },
+            {
+            "id": "faq_copy",
+            "type": "text",
+            "label": "FAQ copy"
+            }
+        ]
+        },
+        {
+        "type": "technical",
+        "name": "Website & Technical",
+        "settings": [
+            {
+            "id": "faq_title",
+            "type": "text",
+            "label": "FAQ title"
+            },
+            {
+            "id": "faq_copy",
+            "type": "text",
+            "label": "FAQ copy"
+            }
+        ]
+        }
+    ]
+}
+
+{% endschema %}

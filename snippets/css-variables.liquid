@@ -1,0 +1,26 @@
+<style>
+  {{ settings.font_heading | font_face }}
+  {{ settings.font_body | font_face }}
+
+  {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
+  {%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
+
+  {{ font_body_bold | font_face }}
+  {{ font_body_bold_italic | font_face }}
+
+  :root {
+    --color-accent: {{ settings.color_accent }};
+    --color-body-text: {{ settings.color_body_text }};
+    --color-main-background: {{ settings.color_main_bg }};
+    --color-border: {{ settings.color_body_text | color_lighten: 50 }};
+
+    --font-heading: {{ settings.type_header_family }}, {{ settings.type_base_family }};
+    --font-heading-weight: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+    --font-body: {{ settings.type_base_family }};
+    --font-body-weight: {{ settings.font_body.weight | default: 'normal' }};
+    --font-body-style: {{ settings.font_body.style }};
+    --font-body-bold-weight: {{ font_body_bold.weight | default: 'bold' }};
+    --font-family-sans-serif: {{ settings.type_base_family }};
+    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  }
+</style>

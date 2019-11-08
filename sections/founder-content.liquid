@@ -1,0 +1,89 @@
+
+{% capture image_layout_1 %}
+<div class="col-3 col-sm-4" style="background-image: url('{{ section.settings.alt_section_image | img_url: '1200x1200' }}'); background-size: cover; background-position: center;"></div>
+{% endcapture %}
+<div class="row" style="min-height: 350px;">
+{% if section.settings.layout == 'left' %}
+    {{ image_layout_1 }}
+{% endif %}
+
+<div class="col-9 col-sm-8 d-flex flex-column align-items-center justify-content-center {% if section.settings.layout == 'left' %}text-left{% else %}text-right{% endif %}" style="background-color: {{ section.settings.text_box_bg }}; padding: 4em;">
+    <blockquote>
+      <h1 class="text-white quote-text">{{ section.settings.alt_text }}</h1>
+      <!-- <div style="width: 100%;"> -->
+      <cite class="text-right text-white">{{ section.settings.by_text }}</cite>
+      <!-- </div> -->
+    </blockquote>
+</div>
+
+
+{% if section.settings.layout == 'right' %}
+    {{ image_layout_1 }}
+{% endif %}
+</div>
+
+<div class="contained" style="padding: 4em; max-width: 1024px;">
+<h1 class="text-center">{{ section.settings.main_text_title }}</h1>
+<div >
+{{ section.settings.main_text }}
+</div>
+</div>
+{% schema %}
+    {
+    "name": "Founder Content",
+    "settings": [
+        {
+        "type": "image_picker",
+        "id": "alt_section_image",
+        "label": "Top Section Image"
+        },
+        {
+        "type": "text",
+        "id": "alt_text",
+        "label": "Top Section Quote"
+        },
+        {
+        "type": "text",
+        "id": "by_text",
+        "label": "Top Section By Line"
+        },
+        {
+        "type": "color",
+        "id": "text_box_bg",
+        "label": "Text box bg"
+        },
+        {
+        "type": "text",
+        "id": "main_text_title",
+        "label": "Main Section Title"
+        },
+        {
+        "type": "richtext",
+        "id": "main_text",
+        "label": "Main Section Text"
+        },
+        {
+        "type": "select",
+        "id": "layout",
+        "label": "Image alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      }
+    ],
+    "presets": [
+    {
+        "name": "Founder Content",
+        "category": "Features"
+    }
+    ]
+  }
+{% endschema %}

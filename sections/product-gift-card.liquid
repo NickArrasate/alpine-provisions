@@ -1,0 +1,289 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <div class="col-md-6 order-1 order-md-1 d-flex align-items-start" style="margin-top:3em;">
+    {% include 'product-slider' %}
+  </div>
+  <div class="col-md-6 order-2 order-md-2">
+  <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" class=" product-section">
+  {% assign full_title = product.title | split: '-' %}
+  <h1>{{ full_title[0] | replace: '-', '' }}</h1>
+  {% if full_title.size > 1 %}
+  <h4>{{ full_title[1] | replace: '-', '' }}</h4>
+  {% endif %}
+  {% include 'sold-out-logic' %}
+  <div class="yotpo-star-box yotpo">
+    <div class="yotpo bottomLine"
+      data-product-id="{{ product.id }}">
+    </div>
+  </div>
+  {% if product.available %}
+  <form action="/cart/add" method="post" enctype="multipart/form-data">
+    {% endif %}
+    <div data-price-wrapper class='price-wrapper'>
+      <span data-product-price class='price' id="ProductPrice-{{ section.id }}">
+        $10 - $100
+      </span>
+    <div class="ro_widget"></div>
+      {% if product.compare_at_price_max > product.price %}
+        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+        <s data-compare-price>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            {{ current_variant.compare_at_price | money }}
+          {% endif %}
+        </s>
+      {% endif %}
+    </div>
+
+    {% unless product.has_only_default_variant %}
+      {% for option in product.options_with_values %}
+        <div class="selector-wrapper no-js product-options-wrapper">
+          <label class='option-label' for="SingleOptionSelector-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <select
+            id="SingleOptionSelector-{{ forloop.index0 }}"
+            data-single-option-selector
+            data-index="option{{ forloop.index }}">
+            {% for value in option.values %}
+              <option
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}selected="selected"{% endif %}>
+                  {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+
+
+        </div>
+      {% endfor %}
+    {% endunless %}
+    <div class="selector-wrapper product-options-wrapper">
+    <select name="id" class="js" data-product-select id="ProductSelect-{{ section.id }}">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+            {{ variant.title }}
+          </option>
+        {% else %}
+          <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+</div>
+    <div class="input-group ">
+      <input class="form-control product-form-quantity" type="number" id="Quantity" name="quantity" value="1" min="1">
+    </div>
+    <button
+      type="submit"
+      name="add"
+      id="AddToCart-{{ section.id }}"
+      class="btn-submit addtocart"
+      data-add-to-cart
+      {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+        <span data-add-to-cart-text>
+          {% if current_variant.available %}
+            {{ 'products.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </span>
+    </button>
+    <!-- <p class="subscription-terms-link small"> * Minimum term required for subscription savings. See <a href="/pages/subscription-and-replenishment-terms">Details.</a><p> -->
+    {{ bold_recurring_desc }}
+ {% if product.available %}
+  </form>
+  {% endif %}
+    <!-- skin type was here -->
+    {% assign titles_list = '' %}
+    {% assign key-benefits = product.description | split: '<!--key-benefits-->' %}
+    {% if product.description contains "<!--details-->" %}
+    {% assign details = product.description | split: '<!--details-->'%}
+    {% endif %}
+    {% if product.description contains "<!--how-to-use-->" %}
+    {% assign how-to-use = product.description | split: '<!--how-to-use-->'%}
+    {% endif %}
+    {% if product.description contains "<!--ingredients-->" %}
+    {% assign ingredients = product.description | split: '<!--ingredients-->'%}
+    {% endif %}
+    {% if product.description contains "<!--story-->" %}
+    {% assign story = product.description | split: '<!--story-->'%}
+    {% endif %}
+    {% if details %}
+      {% assign titles_list = titles_list | append: 'details' | append: ',' %}
+    {% endif %}
+    {% if how-to-use %}
+      {% assign titles_list = titles_list | append: 'how to use' | append: ',' %}
+    {% endif %}
+    {% if ingredients %}
+      {% assign titles_list = titles_list | append: 'ingredients' | append: ',' %}
+    {% endif %}
+    {% if story %}
+      {% assign titles_list = titles_list | append: 'story' | append: ',' %}
+    {% endif %}
+    {% assign tab-titles = titles_list | remove_last: ',' | split: "," %}
+    <div class="prod-details">
+        <div class="key-benefit-box row">
+          <div class="col-sm-8 benefit-list-box">
+          {{ key-benefits[1] }}
+          </div>
+          {% if has_skin_type %}
+          <div class="col-sm-4 benefit-list-box">
+          {{ skin_type }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+  {% unless product == empty %}
+    <script type="application/json" data-product-json>
+      {{ product | json }}
+    </script>
+  {% endunless %}
+  {% capture skin_type %}
+  {% assign has_skin_type = false %}
+    <h4>Skin Type</h4>
+    <ul>
+  {% for tag in product.tags %}
+    {% if tag contains 'oily-skin' or tag contains 'normal-skin' or tag contains 'dry-skin' or tag contains 'combination-skin' %}
+    {% assign has_skin_type = true %}
+    {% if tag contains 'oily-skin' %}
+      <li><span><img class="lazyload js skin-type-icon" src="{{ 'oily.png' | asset_url }}"/></span>{{ tag | capitalize | replace: '-', ' ' }}</li>
+    {% elsif tag contains 'normal-skin' %}
+      <li><span><img class="lazyload js skin-type-icon" src="{{ 'normal.png' | asset_url }}"/></span>{{ tag | capitalize | replace: '-', ' ' }}</li>
+    {% elsif tag contains 'dry-skin' %}
+      <li><span><img class="lazyload js skin-type-icon" src="{{ 'dry.png' | asset_url }}"/></span>{{ tag | capitalize | replace: '-', ' ' }}</li>
+    {% elsif tag contains 'combination-skin' %}
+      <li><span><img class="lazyload js skin-type-icon" src="{{ 'combination.png' | asset_url }}"/></span>{{ tag | capitalize | replace: '-', ' ' }}</li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    </ul>
+  {% endcapture %}
+  {% capture clean_ingredients %}
+    {% assign has_clean_ingredients = false %}
+      <ul>
+        {% for tag in product.tags %}
+          {% if tag contains 'gluten-free' or tag contains 'vegan' or tag contains 'cruelty-free'  or tag contains 'organic' %}
+          {% assign has_clean_ingredients = true %}
+          {% if tag contains 'gluten-free' %}
+            <li><span><img class="lazyload js skin-type-icon" src="{{ 'gluten-free.png' | asset_url }}"/></span><h4 class="clean-ingredient-title">{{ tag | capitalize }}</h4></li>
+          {% elsif tag contains 'vegan' %}
+            <li><span><img class="lazyload js skin-type-icon" src="{{ 'vegan.png' | asset_url }}"/></span><h4 class="clean-ingredient-title">{{ tag | capitalize | replace: '-', ' ' }}</h4></li>
+          {% elsif tag contains 'cruelty-free' %}
+            <li><span><img class="lazyload js skin-type-icon" src="{{ 'crueltyfree2.png' | asset_url }}"/></span><h4 class="clean-ingredient-title">{{ tag | capitalize }}</h4></li>
+          {% elsif tag contains 'organic' %}
+            <li><span><img class="lazyload js skin-type-icon" src="{{ 'organic.png' | asset_url }}"/></span><h4 class="clean-ingredient-title">{{ tag | capitalize | replace: '-', ' ' }}</h4></li>
+          {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endcapture %}
+
+</div>
+  <div class="col-md-6 order-3 order-md-4">
+    <ul class="nav nav-tabs product-tabs row" id="product-tab-control" role="tablist">
+    {% for title in tab-titles %}
+      <li class="nav-item col-sm-3 col-6">
+        <a class="nav-link {% if forloop.first %}active{% endif %}" id="{{title | replace: ' ', '' }}-tab" data-toggle="tab" href="#{{title | replace: ' ', '' }}-content" role="tab" aria-controls="home" aria-selected="true">
+        {{ title | upcase }}
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
+    <div class="tab-content" id="product-tab">
+    {% for title in tab-titles %}
+      <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ tab-titles[forloop.index0]  | replace: ' ', '' }}-content" role="tabpanel" aria-labelledby="{{ tab-titles[forloop.index0]  | replace: ' ', ''  }}-tab">
+      {% if title contains "details" %}
+      {{ details[1] }}
+      {% elsif title contains "use" %}
+      {{ how-to-use[1] }}
+      {% elsif title contains "ingredients" %}
+      {{ ingredients[1] }}
+      {% elsif title contains "story" %}
+      {{ story[1] }}
+      {% endif %}
+      </div>
+    {% endfor %}
+    </div>
+
+    {% if has_clean_ingredients %}
+      <div class="clean-ingredients">
+      <aside class="grid">
+      <div class="grid__item">
+        {{ clean_ingredients }}
+      </div>
+      </aside>
+      </div>
+    {% endif %}
+  </div>
+  {% include 'related-products' %}
+{% schema %}
+  {
+    "name": "Product pages",
+    "class": "row contained",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      },
+      {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "id": "related_title",
+      "type": "text",
+      "label": "Section title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "select",
+      "id": "related_grid_num",
+      "label": "Related Products per row (Desktop)",
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "related_grid_row",
+      "label": "Number of rows (Desktop)",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ]
+    }
+    ]
+  }
+{% endschema %}

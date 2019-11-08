@@ -1,0 +1,140 @@
+<div class="row philosophy-bottom-links">
+    <div class="col-sm-4 d-flex align-items-end justify-content-center" style="background-image: url('{{ section.settings.link_section_image_1 | img_url: '1200x1200' }}'); background-size: cover; background-position: center;">
+    <div class="philosophy-overlay-box" style="background-color: {{ section.settings.color_image_overlay }}; opacity: {{ section.settings.color_image_opacity | times: 0.01 }};">
+    </div>
+        <a class="philosophy-bottom-nav-box" href="{{ section.settings.link_section_link_1 }}">
+        <div style="background-color: {{ section.settings.link_section_text_bg_1 }}">
+        </div>
+        <div>
+        <h4>{{ section.settings.link_section_title_1 | upcase }}</h4>
+        <p>{{ section.settings.link_section_copy_1 }}</p>
+        </div>
+        </a>
+    </div>
+    <div class="col-sm-4 d-flex align-items-end justify-content-center" style="background-image: url('{{ section.settings.link_section_image_2 | img_url: '1200x1200' }}'); background-size: cover; background-position: center;">
+    <div class="philosophy-overlay-box" style="background-color: {{ section.settings.color_image_overlay }}; opacity: {{ section.settings.color_image_opacity | times: 0.01 }};">
+    </div>
+        <a class="philosophy-bottom-nav-box" href="{{ section.settings.link_section_link_2 }}">
+            <div style="background-color: {{ section.settings.link_section_text_bg_2 }}">
+            </div>
+            <div>
+            <h4>{{ section.settings.link_section_title_2 | upcase }}</h4>
+            <p>{{ section.settings.link_section_copy_2 }}</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-4 d-flex align-items-end justify-content-center" style="background-image: url('{{ section.settings.link_section_image_3 | img_url: '1200x1200' }}'); background-size: cover; background-position: center;">
+    <div class="philosophy-overlay-box" style="background-color: {{ section.settings.color_image_overlay }}; opacity: {{ section.settings.color_image_opacity | times: 0.01 }};">
+    </div>
+        <a class="philosophy-bottom-nav-box" href="{{ section.settings.link_section_link_3 }}">
+        <div style="background-color: {{ section.settings.link_section_text_bg_3 }}">
+        </div>
+        <div>
+        <h4>{{ section.settings.link_section_title_3 | upcase }}</h4>
+        <p>{{ section.settings.link_section_copy_3 }}</p>
+        </div>
+        </a>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Chasen featured products",
+    "settings": [
+{
+        "type": "image_picker",
+        "id": "link_section_image_1",
+        "label": "Link Section Image 1"
+        },
+        {
+        "type": "text",
+        "id": "link_section_title_1",
+        "label": "Link Section Title 1"
+        },
+        {
+        "type": "text",
+        "id": "link_section_copy_1",
+        "label": "Link Section Copy 1"
+        },
+        {
+        "type": "page",
+        "id": "link_section_link_1",
+        "label": "Link Section Link 1"
+        },
+        {
+        "type": "color",
+        "id": "link_section_text_bg_1",
+        "label": "Link Section Link 1 Text background"
+        },
+        {
+        "type": "image_picker",
+        "id": "link_section_image_2",
+        "label": "link Section Image 2"
+        },
+        {
+        "type": "text",
+        "id": "link_section_title_2",
+        "label": "Link Section Title 2"
+        },
+        {
+        "type": "text",
+        "id": "link_section_copy_2",
+        "label": "Link Section Copy 2"
+        },
+        {
+        "type": "page",
+        "id": "link_section_link_2",
+        "label": "Link Section Link 2"
+        },
+        {
+        "type": "color",
+        "id": "link_section_text_bg_2",
+        "label": "Link Section Link 2 Text background"
+        },
+        {
+        "type": "image_picker",
+        "id": "link_section_image_3",
+        "label": "link Section Image 3"
+        },
+        {
+        "type": "text",
+        "id": "link_section_title_3",
+        "label": "Link Section Title 3"
+        },
+        {
+        "type": "text",
+        "id": "link_section_copy_3",
+        "label": "Link Section Copy 3"
+        },
+        {
+        "type": "page",
+        "id": "link_section_link_3",
+        "label": "Link Section Link 3"
+        },
+        {
+        "type": "color",
+        "id": "link_section_text_bg_3",
+        "label": "Link Section Link 3 Text background"
+        },
+        {
+        "type": "color",
+        "id": "color_image_overlay",
+        "label": "Link Section Overlay (all three)",
+        "default": "#fff"
+        },
+        {
+        "type": "range",
+        "id": "color_image_opacity",
+        "label": "Image Overlay Opacity",
+        "default": 20,
+        "min": 1,
+        "max": 100
+        }
+],
+    "presets": [
+    {
+        "name": "Static Signposts",
+        "category": "Static Page Components"
+    }
+    ]
+  }
+{% endschema %}

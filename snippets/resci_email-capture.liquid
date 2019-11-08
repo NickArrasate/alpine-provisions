@@ -1,0 +1,42 @@
+<!-- RetentionScience start -->
+<script type='text/javascript'>
+    var _rsq = _rsq || [];
+        _rsq.push(['_setSiteId', 'site_id']); // replace site_id with your static Site ID
+        _rsq.push(['_enableOnsite']); 
+
+    if (condition) { // replace condition with your parameters for checking if a user is logged in
+        _rsq.push(['_setUserId', 'user_id']); // replace user_id with your dynamic user_id variable
+        _rsq.push(['_setUserEmail','user_email']); // replace user_email with your dynamic user_email variable
+    }
+
+/*** EVENT SPECIFIC CODE ***/
+_rsq.push(['_setUserEmail', uEmail]);
+_rsq.push(['_setUserProperties', { 
+    'record_id':'db-user-id',
+    'email':'test@email.com',
+    'registration_source':'source',
+    'full_name': 'John Smith',
+    'address1': '123 Test Street',
+    'address2': 'APT 1',
+    'city': 'Santa Monica',
+    'state': 'CA',
+    'zip': '90405',
+    'country': 'US',
+    'phone': '12345678',
+    'birthday': '1990-01-01',
+    'gender': 'M'
+}]);
+_rsq.push(['_setAction', 'email_entered']);
+/*** END EVENT SPECIFIC CODE ***/
+
+_rsq.push(['_track']);
+
+(function() {
+    var rScix = document.createElement('script');
+        rScix.type = 'text/javascript';
+        rScix.async = true;
+        rScix.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1stxfv94hrhia.cloudfront.net/waves/v3/w.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(rScix);
+    })();
+</script>
+<!-- RetentionScience end -->

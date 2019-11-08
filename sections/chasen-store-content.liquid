@@ -1,0 +1,72 @@
+<div class="chasen-store-content chasen-store-intro-section" style="background-color: {{ section.settings.section_bg }}; position: relative;">
+<div class="chasen-content-background">
+  <div class="outer">
+    <div class="short"></div>
+    <div class="tall"></div>
+  </div>
+  <div class="outer">
+    <div class="short"></div>
+    <div class="tall"></div>
+  </div>
+</div>
+<div class="chasen-content-foreground">
+  <div class="outer">
+    {% comment %} <div class="short"></div> {% endcomment %}
+    <div class="tall">
+        <div class="text-center ">
+          <img src='{{ section.settings.testimonial_image | img_url: '800x800' }}' />
+        </div>
+    </div>
+  </div>
+  <div class="outer text">
+    <div class="short"></div>
+    <div class="tall chasen-store-testimonial-section">
+      <div class="row contained">
+        <div class="col-sm-12 text-center">
+          <h2 class="text-chasen-yellow"><p>{{section.settings.testimonial_text}}</p></h2>
+          {% if section.settings.testimonial_cite != blank %}
+          <p class="cite">{{section.settings.testimonial_cite}}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+{% schema %}
+    {
+    "name": "Chasen Store Content",
+    "settings": [
+        {
+        "type": "color",
+        "id": "section_bg",
+        "label": "Section Background Color"
+        },
+        {
+        "type": "image_picker",
+        "id": "testimonial_image",
+        "label": "Testimonial Image",
+        "info": "image should be 600px wide"
+        },
+        {
+        "type": "richtext",
+        "id": "testimonial_text",
+        "label": "Testimonial Text"
+        },
+        {
+        "type": "text",
+        "id": "testimonial_cite",
+        "label": "Testimonial Cite"
+        }
+      ],
+    "presets": [
+      {
+          "name": "Chasen Store Content",
+          "category": "Features"
+      }
+      ]
+    }
+{% endschema %}

@@ -1,0 +1,47 @@
+<div class="contained">
+  <div class="row" style="margin-bottom: 2em;">
+  <div class="col-sm-7 underlined">
+  <h3 class="text-left uppercase">Special Offers</h3>
+  </div>
+  </div>
+  <div class="row">
+  {% for block in section.blocks %}
+  <div class="col col-sm-4 col-md-3 text-center offer-block">
+    <div class="offer-img-block" style="background-image: url('{{ block.settings.offer_image | img_url: '300x300' }}'); background-size: cover; background-position:center;"></div>
+    <p class="offer-title">{{ block.settings.offer_title }}</p>
+    <a class="button btn offer-btn" href="/discount/{{block.settings.offer_code}}?redirect=/cart">Apply Discount</a>
+  </div>
+  {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+"name": "Special Offers",
+"class": "offer-grid",
+"settings": [
+    ],
+    "blocks": [
+    {
+        "type": "offers",
+        "name": "Offers",
+        "settings": [
+        {
+            "type": "image_picker",
+            "id": "offer_image",
+            "label": "Offer Image"
+        },
+        {
+            "type": "text",
+            "id": "offer_title",
+            "label": "Offer Title"
+        },
+        {
+            "type": "text",
+            "id": "offer_code",
+            "label": "Discount Code"
+        }
+        ]
+    }
+    ]
+}
+{% endschema %}

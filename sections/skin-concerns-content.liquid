@@ -1,0 +1,265 @@
+{% capture image_layout_1 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_1_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+{% capture image_layout_2 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_2_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+{% capture image_layout_3 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_3_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+{% capture image_layout_4 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_4_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+{% capture image_layout_5 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_5_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+{% capture image_layout_6 %}
+<div class="col-md-3 col-sm-4" style="background-image: url('{{ section.settings.section_6_image | img_url: '800x800' }}'); background-size: cover; background-position: center; min-height: 300px;"></div>
+{% endcapture %}
+<div class="contained">
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+        {{ image_layout_1 }}
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_1}}</h2>
+        <h4><em>{{ section.settings.goal_1}}</em></h4>
+        <p>{{ section.settings.text_1 }}</p>
+        <p>{{ section.settings.bonus_1 }}</p>
+    </div>
+</div>
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_2}}</h2>
+        <h4><em>{{ section.settings.goal_2}}</em></h4>
+        <p>{{ section.settings.text_2 }}</p>
+        <p>{{ section.settings.bonus_2 }}</p>
+    </div>
+    {{ image_layout_2 }}
+</div>
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+        {{ image_layout_3 }}
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_3}}</h2>
+        <h4><em>{{ section.settings.goal_3}}</em></h4>
+        <p>{{ section.settings.text_3 }}</p>
+        <p>{{ section.settings.bonus_3 }}</p>
+    </div>
+</div>
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_4}}</h2>
+        <h4><em>{{ section.settings.goal_4}}</em></h4>
+        <p>{{ section.settings.text_4 }}</p>
+        <p>{{ section.settings.bonus_4 }}</p>
+    </div>
+    {{ image_layout_4 }}
+</div>
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+    {{ image_layout_5 }}
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_5}}</h2>
+        <h4><em>{{ section.settings.goal_5}}</em></h4>
+        <p>{{ section.settings.text_5 }}</p>
+        <p>{{ section.settings.bonus_5 }}</p>
+    </div>
+</div>
+<div class="row philosophy-row" style="background-color: {{ section.settings.text_box_bg_alt }}; min-height: 500px; align-items= center;">
+    <div class="col-md-9 col-sm-8 d-flex flex-column align-items-center justify-content-center" style="padding: 3em;">
+        <h2>{{ section.settings.title_6}}</h2>
+        <h4><em>{{ section.settings.goal_6}}</em></h4>
+        <p>{{ section.settings.text_6 }}</p>
+        <p>{{ section.settings.bonus_6 }}</p>
+    </div>
+    {{ image_layout_6 }}
+</div>
+</div>
+{% schema %}
+    {
+    "name": "Philosophy Content",
+    "settings": [
+        {
+        "type": "color",
+        "id": "text_box_bg",
+        "label": "Main Text Box Background Colors"
+        },
+        {
+        "type": "color",
+        "id": "text_box_bg_alt",
+        "label": "Alt Text Box Background Colors"
+        },
+        {
+        "type": "text",
+        "id": "title_1",
+        "label": "Title 1",
+        "default": "Blemish-prone:"
+        },
+        {
+        "type": "text",
+        "id": "goal_1",
+        "label": "Goal 1",
+        "default": "Goal - to balance sebum production and reduce blemishes."
+        },
+        {
+        "type": "text",
+        "id": "text_1",
+        "label": "Text 1",
+        "default": "Blemish-prone skin is characterized by frequent breakouts and excessive oil buildup around the nose, chin, forehead, and cheeks. To control oil and tame breakouts, Blemish-prone Skin Types must use a Facial Cleanser and Toner every morning and evening. A daily or every-other-day Facial Scrub is also recommended unless the breakout is very severe, in which case, wait until skin is calmer before using a Scrub. Blemish-prone Skin Types can avoid adding blemish-causing dirt and germs to their complexions by avoiding contact between face and hands and face and cell phone. The before-bed removal of makeup or tinted moisturizer is a must for keeping Blemish-prone skin free and clear of breakouts. A topical blemish-drying product such as a Facial Mask may help reduce the length of time a blemish lasts."
+        },
+        {
+        "type": "text",
+        "id": "bonus_1",
+        "label": "Bonus Points 1",
+        "default": "Bonus Points: It is recommended that those with Blemish-prone complexions get tested for food allergies. Common culprits such as wheat, corn, soy, and dairy can often contribute to the severity and frequency of breakouts."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_1_image",
+        "label": "Section 1 Image"
+        },
+        {
+        "type": "text",
+        "id": "title_2",
+        "label": "Title 2",
+        "default": "Congested Pores: "
+        },
+        {
+        "type": "text",
+        "id": "goal_2",
+        "label": "Goal 2",
+        "default": "Goal - to greatly reduce the build up of dirt and sebum in pores. "
+        },
+        {
+        "type": "text",
+        "id": "text_2",
+        "label": "Text 2",
+        "default": "Any Skin Type can experience congested pores if the skin isn't thoroughly cleansed morning and evening. When pores are congested, they appear larger than they actually are because dirt and sebum have built up inside of them, stretching them beyond their natural size. This can lead to the appearance of premature aging, sagging skin, and rough or bumpy-looking complexions. The good news is that congested pores are easily remedied with a regular Skincare Ritual that includes the Facial Cleanser and Toner most appropriate for your Skin Type and the use of a Facial Scrub 2 to 3 times per week. Follow this simple protocol and watch how quickly all of the “gunk” inside your pores will be removed, revealing a tremendous reduction in pore congestion and, thus, the appearance of your pore size. The before-bed removal of makeup or tinted moisturizer is a must for keeping pores free and clear of dirt and sebum build up."
+        },
+        {
+        "type": "text",
+        "id": "bonus_2",
+        "label": "Bonus Points 2",
+        "default": "Bonus points: Take regular trips to your favorite licensed Esthetician for extractions. While the effects will be immediate, even ten years from now you’ll be so glad you did when your skin looks youthful, tight, and has retained plenty of its elasticity."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_2_image",
+        "label": "Section 2 Image"
+        },
+        {
+        "type": "text",
+        "id": "title_3",
+        "label": "Title 3",
+        "default": "Dark Spots & Uneven Skin Tone:"
+        },
+        {
+        "type": "text",
+        "id": "goal_3",
+        "label": "Goal 3",
+        "default": "Goal - to create a more even skin tone and lighten the appearance of dark spots."
+        },
+        {
+        "type": "text",
+        "id": "text_3",
+        "label": "Text 3",
+        "default": "'Age Spots' as they are so unceremoniously named, can happen to any Skin Type. Generally, Dark Spots and Uneven Skin Tone (a.k.a. Hyperpigmentation) are a result of sun damage or other trauma to the skin, such as acne scarring or other scars. The appearance of Hyperpigmentation becomes more evident as we age. Uneven Skin Tone is usually seen in larger areas of the face, while Dark Spots are more concentrated. Products with Vitamin C, Retinol, and Peptides help to even skin tone and lighten dark spots. When used regularly, facial scrubs and masks aid in balancing skin tone and reducing the appearance of dark spots. Daily use of a SPF 15 or higher sunscreen is critical for all Skin Types and Concerns, and is especially important if you experience Dark Spots & Uneven Skin Tone. Use a higher SPF if you are the outdoorsy type, and be sure to reapply sunscreen every two hours if you are in the sun for prolonged periods of time."
+        },
+        {
+        "type": "text",
+        "id": "bonus_3",
+        "label": "Bonus Points 3",
+        "default": "Bonus Points: Keep a cute hat (with a brim that is wide enough to shade your face) in your car or by the front door, and throw it on when you’re headed to the beach or out on a hike."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_3_image",
+        "label": "Section 3 Image"
+        },
+        {
+        "type": "text",
+        "id": "title_4",
+        "label": "Title 4",
+        "default": "Dullness:"
+        },
+        {
+        "type": "text",
+        "id": "goal_4",
+        "label": "Goal 4",
+        "default": "Goal - to brighten skin and up your youthful glow quotient."
+        },
+        {
+        "type": "text",
+        "id": "text_4",
+        "label": "Text 4",
+        "default": "Late nights, travel, and stress can take their toll on any Skin Type from time to time. That doesn’t mean you have to take it lying down (although a nap sometimes helps)! Restore your skin’s inherent glow by sweeping away the expired and flaky skin cells that cling to skin’s surface, dulling your glow and, quite possibly, stealing your thunder. Choose Facial Cleansers and Toners with active ingredients that help clear skin of dry, expired skin cells and they will allow Serums and Moisturizers to absorb more easily and work more effectively. Then use a Facial Scrub 2 to 3 times per week and a brightening Facial Mask weekly for a fresh dose of that 'I’m in love' radiance."
+        },
+        {
+        "type": "text",
+        "id": "bonus_4",
+        "label": "Bonus Points 4",
+        "default": "Bonus Points: Choose skincare products with Vitamin C, Retinol, and Peptides. Once your skin is cleared of dry, expired skin, these active ingredients will perform at their peak to restore your glow."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_4_image",
+        "label": "Section 4 Image"
+        },
+        {
+        "type": "text",
+        "id": "title_5",
+        "label": "Title 5",
+        "default": "Fine Lines & Wrinkles:"
+        },
+        {
+        "type": "text",
+        "id": "goal_5",
+        "label": "Goal 5",
+        "default": "Goal - to minimize the appearance of Fine Lines & Wrinkles and help slow down the appearance of aging."
+        },
+        {
+        "type": "text",
+        "id": "text_5",
+        "label": "Text 5",
+        "default": "Fine Lines & Wrinkles seem to have the uncanny ability to sneak up on us. That’s because no matter your Skin Type, the body experiences a loss of collagen and elastin as it ages, which causes fine lines and wrinkles to form as the skin becomes less firm. The great news is that with a regular Skincare Ritual, your skin can look younger longer as it benefits from bio-available active ingredients in Facial Cleansers, Toners, Serums, Moisturizers, and, even, Sunscreens. Your mantra here is “daily use.” Stick to your Skincare Ritual in the AM and PM, along with consistent, daily use of sunscreen and thank us in a decade. And for you Oily and Combination Skin Types: congratulations! You have an advantage - your excess sebum production delays Fine Lines & Wrinkles from appearing. Seize the opportunity by embracing your sebum production and keep your skin balanced with an appropriate Skincare Ritual."
+        },
+        {
+        "type": "text",
+        "id": "bonus_5",
+        "label": "Bonus Points 5",
+        "default": "Bonus Points: Staying hydrated is great for your body and helps your skin look younger. Be sure to drink plenty (at least eight 8 oz. glasses) of high quality water every day."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_5_image",
+        "label": "Section 5 Image"
+        },
+        {
+        "type": "text",
+        "id": "title_6",
+        "label": "Title 6",
+        "default": "Sensitivity:"
+        },
+        {
+        "type": "text",
+        "id": "goal_6",
+        "label": "Goal 6",
+        "default": "Goal - to maintain a Skincare Ritual that sustains your skin’s overall wellbeing while also reducing redness and irritation"
+        },
+        {
+        "type": "text",
+        "id": "text_6",
+        "label": "Text 6",
+        "default": "Sensitive skin can be caused by a variety of factors, such as using products that contain active ingredients that are too harsh for your Skin Type, excessive sun exposure, and Rosacea, to name a few. People with Sensitive Skin Concern should avoid using strong active ingredients as often as other Skin Types. Try to stay out of the sun and heat as much as possible (also, use a higher sunscreen SPF). Find a Skincare Ritual that works for your skin and stick with it, rather than trying new products often, and, when trying new products, perform a Patch Test first. To do a Patch Test, simply apply a new product to an area of skin similar to your facial skin, such as behind the ear or on the forearm or upper arm near the elbow bend. Allow the new product to be exposed in this area for up to 24 hours. If no reaction is experienced, then test the new product on your face once a day for a week. Add into your Ritual twice a day as tolerated. If a reaction (such as immediate and prolonged redness) is experienced, wash the product off immediately and do not use on your face."
+        },
+        {
+        "type": "text",
+        "id": "bonus_6",
+        "label": "Bonus Points 6",
+        "default": "Bonus Points: Calming ingredients such as Calendula, Evening Primrose Oil, Chamomile, Rosemary, and Aloe quell irritation and redness. Choose Natural and Organic products that are free of chemicals to help reduce the effects of skin Sensitivity."
+        },
+        {
+        "type": "image_picker",
+        "id": "section_6_image",
+        "label": "Section 6 Image"
+        }
+    ]
+    }
+{% endschema %}

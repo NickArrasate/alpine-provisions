@@ -1,0 +1,69 @@
+{% if section.settings.show %}
+<div class="" style="width: 100%; padding: 1em 1.5em 0; background-color: {{ section.settings.background_color }};" >
+  <div class="contained">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-6">
+      <p class="text-right homepage-announcement-override" style="color: {{section.settings.text_color }}">{{section.settings.announcement_bar_text_1}}</p>
+    </div>
+    <div class="col-6">
+      <h3 class="text-left homepage-announcement-override" style="color: {{section.settings.text_color }}; margin :0;">{{section.settings.announcement_bar_text_2}}</h3>
+    </div>
+    {% if section.settings.announcement_bar_text_3 %}
+    <div class="col-12">
+      <h5 class="text-center homepage-announcement-override" style="color: {{section.settings.text_color }}">{{section.settings.announcement_bar_text_3}}</h5>
+    </div>
+    {% endif %}
+  </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Banner Promotion Cart",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "show",
+          "label": "Show this section?",
+          "default": false
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_1",
+          "label": "Announcement text left",
+          "info": "Left"
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_2",
+          "label": "Announcement text right",
+          "info": "Right"
+        },
+        {
+          "type": "textarea",
+          "id": "announcement_bar_text_3",
+          "label": "Announcement text center (use exclusively)",
+          "info": "Centered text"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Section Background"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Section Text Color"
+        },
+        {
+        "type": "page",
+        "id": "link",
+        "label": "Link to another page."
+        }
+      ],
+  "presets": [{
+    "name": "Promotion Section",
+    "category": "Promotional"
+    }]
+  }
+{% endschema %}

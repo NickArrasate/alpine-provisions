@@ -1,0 +1,106 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% include 'favicon-helper-pangea' %}
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  {%- capture seo_title -%}
+    {{ page_title }}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% include 'social-meta-tags' %}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', '');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
+<!-- yotpo -->
+  <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/EvTz8BbF3CWzV0DmGk0unt70PaWGAfF3nuEHdmV9/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
+  
+  <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js' async></script>
+  <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' async></script>
+  <script type="text/javascript" src='{{ "vendor.js" | asset_url }}'></script>
+  <script type="text/javascript" src='{{ "theme.js" | asset_url }}' async></script>
+  <script type="text/javascript" src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' async></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shopify-cartjs/0.4.1/cart.min.js" async></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shopify-cartjs/0.4.1/rivets-cart.min.js" async></script>
+  {% include 'script-tags', layout: 'theme' %}
+  {% include 'css-variables' %}
+  {% include 'style-tags' %}
+
+  {{ content_for_header }}
+{% include 'resci_main' %}
+</head>
+{% if canonical_url contains '/tools/' %}
+{% section 'header-bundle' %}
+{% endif %}
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+  <main role="main" id="MainContent" {% if canonical_url contains '/tools/' %}class="contained"{% endif %}>
+    {{ content_for_layout }}
+  </main>
+{% if page.url contains "alpine" or collection.url contains "alpine" or blog.url contains "alpine" %}
+  {% section 'footer-alpine' %}
+{% elsif page.url contains "chasen" or collection.url contains "chasen" or blog.url contains "chasen" %}
+  {% section 'footer-chasen' %}
+{% elsif page.url contains "subscription" %}
+  {% section 'footer-all-brand' %}
+{% elsif canonical_url contains "/tools/" %}
+  {% section 'footer-all-brand' %}
+{% else %}
+  {% section 'footer' %}
+{% endif %}
+{% comment %} {{ "theme.js" | asset_url | script_tag }} {% endcomment %}
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" async></script>
+<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" async></link>
+{% include 'carousel-helpers' %}
+<script type="text/javascript">
+    jQuery(function() {
+        CartJS.init({{ cart | json }});
+    });
+</script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5C5DH2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!--START Pepperjam CODE--> <noscript> <iframe src="//nojscontainer.pepperjam.com/253429430.html" width="1" height="1" frameborder="0"></iframe> </noscript> <script> (function(){ var a=document.createElement("script"); a.type="text/javascript", a.async=!0, a.src="//container.pepperjam.com/253429430.js"; var b=document.getElementsByTagName("head")[0]; if(b) b.appendChild(a,b); else { var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b) } })(); </script> <!--END Pepperjam CODE-->
+
+{% include 'special-offers' %}
+{% include 'subscription-theme-footer' %}
+
+</body>
+</html>

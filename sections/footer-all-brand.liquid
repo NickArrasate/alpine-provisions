@@ -1,0 +1,183 @@
+<div class="footer-wrapper" style="background-color: {{section.settings.upper_footer_bg}}">
+<footer class="page-footer font-small contained">
+  <div class="footer-upper">
+    {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+    <ul class="d-flex align-items-center justify-content-center">
+      {% for social in social_accounts %}
+      {%- assign social_handle = social | handleize -%}
+      {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+      {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+      {% if settings[social_link] != blank %}
+      <li class="social-link">
+        <a href="{{ settings[social_link] }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+          <div class="icon">{% include social_icon %}</div>
+          <span class="icon-fallback-text">{{ social }}</span>
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+    {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,google_pay,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
+    <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+    <ul class="payment-icons" class="d-flex align-items-center">
+      {% for type in shop.enabled_payment_types %}
+      {% if payment_icons_available contains type %}
+      <li>
+        {%- assign icon_name = type | prepend: 'icon-' -%}
+        {% include icon_name %}
+        <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endunless %}
+    {% endif %}
+    <div class="row">
+    {%- assign footer_linklist_1 = section.settings.footer_linklist_1 -%}
+    {%- assign footer_linklist_2 = section.settings.footer_linklist_2 -%}
+    {% if linklists[footer_linklist_1].links.size > 0 %}
+    <div class="col-sm-3">
+      <div class="row">
+        <ul class="footer-nav d-flex flex-column align-items-start">
+          {% for link in linklists[footer_linklist_1].links %}
+          <li class=""><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-sm-6">
+      <div class="row all-brand-logo-row">
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <a href="/" class="logo-image">
+            {% capture image_size %}200x{% endcapture %}
+            <img src="{{ section.settings.logo-1 | img_url: image_size }}"
+            srcset="{{ section.settings.logo-1 | img_url: image_size }} 1x, {{ section.settings.logo-1 | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo-1.alt | default: shop.name }}">
+          </a>
+        </div>
+        {% if section.settings.logo-2 %}
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <a href="/pages/{{ section.settings.page-2 }}" class="logo-image">
+            {% capture image_size %}200x{% endcapture %}
+            <img src="{{ section.settings.logo-2 | img_url: image_size }}"
+            srcset="{{ section.settings.logo-2 | img_url: image_size }} 1x, {{ section.settings.logo-2 | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo-2.alt | default: shop.name }}">
+          </a>
+        </div>
+        {% endif %}
+        {% if section.settings.logo-3 %}
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <a href="/pages/{{ section.settings.page-3 }}" class="logo-image">
+            {% capture image_size %}200x{% endcapture %}
+            <img src="{{ section.settings.logo-3 | img_url: image_size }}"
+            srcset="{{ section.settings.logo-3 | img_url: image_size }} 1x, {{ section.settings.logo-3 | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo-3.alt | default: shop.name }}">
+          </a>
+        </div>
+        {% endif %}
+        {% if section.settings.logo-4 %}
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <a href="/pages/{{ section.settings.page-4 }}" class="logo-image">
+            {% capture image_size %}200x{% endcapture %}
+            <img src="{{ section.settings.logo-4 | img_url: image_size }}"
+            srcset="{{ section.settings.logo-4 | img_url: image_size }} 1x, {{ section.settings.logo-4 | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo-4.alt | default: shop.name }}">
+          </a>
+        </div>
+        {% endif %}
+        {% if section.settings.logo-5 %}
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <a href="/pages/{{ section.settings.page-5 }}" class="logo-image">
+            {% capture image_size %}200x{% endcapture %}
+            <img src="{{ section.settings.logo-5 | img_url: image_size }}"
+            srcset="{{ section.settings.logo-5 | img_url: image_size }} 1x, {{ section.settings.logo-5 | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo-5.alt | default: shop.name }}">
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+  {% include 'footer-lower' %}
+</footer>
+</div>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist_1",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-1",
+        "label": "Footer Logo 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-2",
+        "label": "Footer Logo 2"
+      },
+      {
+        "type": "page",
+        "id": "page-2",
+        "label": "Logo Link 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-3",
+        "label": "Footer Logo 3"
+      },
+      {
+        "type": "page",
+        "id": "page-3",
+        "label": "Logo Link 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-4",
+        "label": "Footer Logo 4"
+      },
+      {
+        "type": "page",
+        "id": "page-4",
+        "label": "Logo Link 4"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-5",
+        "label": "Footer Logo 5 (bottom and fullwidth)"
+      },
+      {
+        "type": "page",
+        "id": "page-5",
+        "label": "Logo Link 5"
+      },
+      {
+        "type": "color",
+        "id": "upper_footer_bg",
+        "label": "Upper Footer Background Color"
+      },
+      {
+        "type": "color",
+        "id": "lower_footer_bg",
+        "label": "Lower Footer Background Color"
+      }
+    ]
+  }
+
+{% endschema %}

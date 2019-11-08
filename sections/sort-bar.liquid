@@ -1,0 +1,53 @@
+<div class="d-flex align-items-center justify-content-center contained">
+<div id="sort-by-container">
+</div>
+<div class="filter">
+   <select class="coll-filter">
+     <option value="">Ingredients</option>
+     {% for tag in collection.all_tags %}
+        {% capture tag_handle %}{{ tag | handle | lowercase }}{% endcapture %}
+        {% if tag_handle contains 'filter-' %}
+        {% assign tag_mod = tag_handle | remove: 'filter-' | split: '-' %}
+          {% if current_tags contains tag  %}
+          <option value="{{ tag_handle }}" selected>{% for word in tag_mod %}{{ word | capitalize }} {% endfor %}</option>
+          {% else %}
+          <option value="{{ tag_handle }}" >{% for word in tag_mod %}{{ word | capitalize }} {% endfor %}</option>
+          {% endif %}
+      {% endif %}
+     {% endfor %}
+   </select>
+ </div>
+</div>
+<script>
+  var currentURL = new URL(window.location);
+  var currentParams = currentURL.searchParams.get('sort_by');
+  var urlSearchParams = new URLSearchParams(
+    window.location.search.indexOf("sort_by") > -1
+    ? window.location.search.replace(/sort_by/gi,"")
+    : window.location.search
+  );
+var modURL = currentURL.href.split('?');
+  var render = function (template, node) {
+    node.innerHTML = template;
+
+    node.querySelector('#sort-by').addEventListener('change', function() {
+      urlSearchParams.set(this.name, this.value);
+      window.location = `?sort_by${urlSearchParams}`;
+    });
+  };
+
+  var SortOptions = [{
+    label: 'Best Selling',
+    value: 'best-selling'
+  }];
+
+  var template = `
+    <ul id="sort-by">
+    ${SortOptions.map((item) =>
+        `<li class="sort-item"><a class="sort-select" href="${modURL[0]}?sort_by=${item.value}">${item.label}</a></li>`
+    ).join('')}
+    </ul>
+  `;
+
+  render(template, document.querySelector('#sort-by-container'));
+</script>

@@ -1,0 +1,165 @@
+<div class="footer-wrapper" style="background-color: {{section.settings.upper_footer_bg}}">
+<footer class="page-footer font-small contained">
+  <div class="footer-upper">
+    {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+    {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,google_pay,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
+    <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+    <ul class="payment-icons" class="d-flex align-items-center">
+      {% for type in shop.enabled_payment_types %}
+      {% if payment_icons_available contains type %}
+      <li>
+        {%- assign icon_name = type | prepend: 'icon-' -%}
+        {% include icon_name %}
+        <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endunless %}
+    {% endif %}
+    <div class="row">
+    {%- assign footer_linklist_1 = section.settings.footer_linklist_1 -%}
+    {%- assign footer_linklist_2 = section.settings.footer_linklist_2 -%}
+    {% if linklists[footer_linklist_1].links.size > 0 %}
+    <div class="col-sm-4">
+      <div class="row">
+        <ul class="footer-nav col-md-6 d-flex flex-column align-items-start">
+          {% for link in linklists[footer_linklist_1].links %}
+          <li class=""><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul class="footer-nav col-md-6 d-flex flex-column align-items-start">
+          {% for link in linklists[footer_linklist_2].links %}
+          <li class=""><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-sm-4 d-flex align-items-center justify-content-center">
+      <a href="/pages/chasen-stone-home/" class="logo-image">
+        {% if section.settings.logo != blank %}
+        {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+        <img src="{{ section.settings.logo | img_url: image_size }}"
+        srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+        alt="{{ section.settings.logo.alt | default: shop.name }}">
+        {% else %}
+        {{ shop.name }}
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-4 social-links">
+      {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+      {% if section.blocks.size > 0 %}
+      <ul class="d-flex align-items-center justify-content-center">
+        {% for social in social_accounts %}
+        {%- assign social_handle = social | handleize -%}
+        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+        {% for block in section.blocks %}
+        {% capture social_link %}{{block.settings.social_name | handleize }}{% endcapture %}
+        {% if social_link == social_handle %}
+        <li class="social-link">
+          <a href="{{ block.settings.link }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+            <div class="icon">{% include social_icon %}</div>
+            <span class="icon-fallback-text">{{ block.section.social_name }}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+      </ul>
+      {% else %}
+      <ul class="d-flex align-items-center justify-content-center">
+        {% for social in social_accounts %}
+        {%- assign social_handle = social | handleize -%}
+        {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+        {% if settings[social_link] != blank %}
+        <li class="social-link">
+          <a href="{{ settings[social_link] }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+            <div class="icon">{% include social_icon %}</div>
+            <span class="icon-fallback-text">{{ social }}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+  {% include 'footer-lower' %}
+</footer>
+</div>
+
+{% schema %}
+  {
+    "name": "Chasen - Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist_1",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_2",
+        "label": "Second menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Footer Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 450,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 210
+      },
+      {
+        "type": "color",
+        "id": "upper_footer_bg",
+        "label": "Upper Footer Background Color"
+      },
+      {
+        "type": "color",
+        "id": "lower_footer_bg",
+        "label": "Lower Footer Background Color"
+      }
+    ],
+    "blocks": [
+      {
+
+      "type": "text",
+      "name": "socials",
+      "settings": [
+        {
+          "type": "text",
+          "id": "social_name",
+          "label": "name of social (facebook, twitter, etc)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to Social"
+        }
+      ]
+      }
+    ]
+  }
+
+{% endschema %}

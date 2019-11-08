@@ -1,0 +1,26 @@
+
+{% if page.url contains "alpine" %}
+{% layout 'alpine' %}
+  <div class="rte">
+  {% section "pre-header" %}
+    {% section 'header-contact-alpine' %}
+
+{% elsif page.url contains "chasen" %}
+  {% layout 'collection-chasen' %}
+  <div class="rte">
+  {% section "pre-header" %}
+    {% section 'header-contact-chasen' %}
+
+{% else %}
+  {% layout 'theme' %}
+  <div class="rte">
+  {% section "pre-header" %}
+  {% section 'header-locator-pangea' %}
+
+{% endif %}
+
+  {{ page.content }}
+  <div class="contained col-sm-8 offset-sm-2" style="max-width: 1000px;
+    margin: 30px auto 0;padding-bottom:50px;" develic-map="{{page.metafields.maps-by-develic.data | escape}}"></div>
+</div>
+{{ 'store-locator-checkbox-overrides.js' | asset_url | script_tag }}

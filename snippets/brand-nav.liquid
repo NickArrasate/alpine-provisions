@@ -1,0 +1,69 @@
+<div class="brand-navbar d-flex align-items-center justify-content-between brand-nav {% if page.url contains "/collections/" %}collection-brands{% endif %}" style="position: relative; z-index: 10;">
+  <ul class="brand-list" style="margin-bottom: 0;">
+    <li>
+      <a href="/">
+        <img class="lazyload po" alt="shop Pangea Organics" src="{{ 'PANGEA_LOGO_2018.png' | asset_url }}"/>
+      </a>
+    </li>
+    <li>
+      <a href="/pages/alpine-home/">
+        <img class="lazyload ap" alt="shop Alpine Provisions" src="{{ 'alpine-brand-logo.png' | asset_url }}"/>
+      </a>
+    </li>
+    <li>
+      <a href="/pages/chasen-stone-home/">
+        <img class="lazyload cs" alt="shop Chasen + Stone" src="{{ 'chasen-brand-logo.png' | asset_url }}"/>
+      </a>
+    </li>
+  </ul>
+  <div class="d-flex align-items-center justify-content-end top-nav">
+    <form action="/search" method="get" role="search" class="input-group header-search d-flex align-items-center justify-content-end" >
+      <div class="input-group-prepend">
+        <button type="submit" class="btn btn-small">
+          {% include 'icon-search' %}
+          <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+        </button>
+      </div>
+      <input type="search"
+      name="q"
+      id="Search"
+      class="form-control"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'general.search.placeholder' | t }}">
+      <label for='Search' style="visibility: hidden; height: 0px !important; width: 0px !important" aria-label='search' aria-labelledby="Search">Search</label>
+    </form>
+    {% if shop.customer_accounts_enabled %}
+    <div class="d-flex align-items-center justify-content-end top-nav">
+      <ul class="d-flex align-items-center justify-content-around">
+        {% if customer %}
+        <li class="text-white" style="margin-right: 10px;">
+          {% if customer.first_name != blank %}
+          {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+          {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+          {% else %}
+          <a href="/account">{{ 'layout.customer.account' | t }}</a>
+          {% endif %}
+        </li>
+        <li>
+          {{ 'layout.customer.log_out' | t | customer_logout_link }}
+        </li>
+        {% else %}
+        <li>
+          {{ 'layout.customer.log_in_html' | t | customer_login_link }}
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+    <div>
+      <a href="/cart" class="d-flex align-items-center justify-content-start">
+        {% include 'icon-bag' %}
+        {% if cart.item_count!=0 %}
+          <div class="item-count">
+            <span>{{ cart.item_count }}</span>
+          </div>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</div>

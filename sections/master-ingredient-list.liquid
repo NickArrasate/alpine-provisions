@@ -1,0 +1,157 @@
+
+<!--Grab all products -->
+<section class="ingredient-glossary-list">
+  <!-- Iterate through metafields from the page -->
+  {% for mf in page.metafields["global"] %}
+  <!-- The following lines build a variable for comparing against the common names in the fields -->
+  {% assign index = "Ingredient_" | append: forloop.index %}
+  {% if forloop.index < 10 %}
+  {% assign field = index | append: ".ingredi" %}
+  {% else %}
+  {% assign field = index | append: ".ingred" %}
+  {% endif %}
+  {%- assign img_include = page.metafields[field]["image"] -%}
+  {%- assign ingredientTitle =  page.metafields[field]["common-name"] -%}
+  {%- assign ingredientDesc =  page.metafields[field]["description"] -%}
+  {% unless ingredientTitle == ''%}
+  <div style="background-image: url('{{ img_include }}'); background-position:center; background-size: cover;">
+    <div class="row d-flex justify-content-start ingredient-row">
+      <div class="col-6 d-flex align-items-center">
+        <div class="overlay-bg toggle_bar_{{ forloop.index }}" style="">
+          <div class="col-12">
+            <h2 class="text-dark ingredient-title">{{ ingredientTitle }}</h2>
+          </div>
+          <div class="col-12">
+            <strong class="text-dark ingredient-latin">{{ page.metafields[field]["latin-name"] }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 d-flex flex-column align-items-center justify-content-around text-box">
+        <!--Iterate through each of the first 30 ingredients in a product (Should be 30) -->
+        <div class="toggle_box_{{ forloop.index }} toggle-box" style="">
+        <div class="toggle-box-inner">
+        <h3>What's Great About This Ingredient?</h3>
+        <p>{{ ingredientDesc }}</p>
+        {% for product in collections.all.products %}
+          {% if product.metafields["global"].size > 0 %}
+          {% for i in (1..product.metafields["global"].size) %}
+            {%- assign productIndex = "ingredient_" | append: forloop.index -%}
+            {%- assign productField = productIndex | append: ".ingredi" -%}
+            {%- assign productTitle = product.metafields[productField]["common-name"] -%}
+            {% if productTitle == ingredientTitle %}
+              <a href="{{ product.url }}"><p>{{product.title}} </p></a>
+            {% endif %}
+            {%- assign productIndex = null -%}
+            {%- assign productField = null -%}
+            {%- assign productTitle = null -%}
+          {% endfor %}
+          {% endif %}
+        {% endfor %}
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var is_cancel = null;
+    $('.toggle_bar_{{ forloop.index }}').click(function(){
+      $('.toggle-box').not($('.toggle_box_{{ forloop.index }}')).hide('100');
+      $('.toggle_box_{{ forloop.index }}').slideToggle();
+      $('.toggle_bar_{{ forloop.index }}').toggleClass('expanded');
+    });
+  </script>
+  {%- assign img_include = null -%}
+  {%- assign ingredientTitle =  null -%}
+  {%- assign ingredientDesc =  null -%}
+  {% endunless %}
+{% endfor %}
+<script type="text/javascript">
+  $('.toggle_box_1').slideToggle();
+</script>
+</section>
+
+{% schema %}
+  {
+    "name": "Master Ingredient List",
+    "settings": [
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay Color"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "Overlay Opacity",
+        "default": 2,
+        "min": 1,
+        "max": 100
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Ingredients",
+        "category": "Features"
+      }
+    ]
+  }
+{% endschema %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  {% if product.featured_image %}
+    {% assign image_size = product.featured_image.width | append: 'x' %}
+    "image": [
+      "https:{{ product.featured_image.src | img_url: image_size }}"
+    ],
+  {% endif %}
+  "description": "{{ product.description | strip_html | escape }}",
+  {% if current_variant.sku != blank %}
+    "sku": "{{ current_variant.sku }}",
+  {% endif %}
+  "brand": {
+    "@type": "Thing",
+    "name": "{{ product.vendor | escape }}"
+  },
+  {% if product.variants %}
+    "offers": [
+      {% for variant in product.variants %}
+        {
+          "@type" : "Offer",
+          "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : "{{ variant.price | divided_by: 100.00 }}",
+          "priceCurrency" : "{{ shop.currency }}",
+          "url" : "{{ shop.url }}{{ variant.url }}",
+          "itemOffered" :
+          {
+              "@type" : "Product",
+              {% if variant.image %}
+                {% assign variant_image_size = variant.image.width | append: 'x' %}
+                "image": "http:{{ variant.image.src | img_url: variant_image_size }}",
+              {% endif %}
+              {% if variant.title != blank %}
+                "name" : "{{ variant.title | escape }}",
+              {% endif %}
+              {% if variant.sku != blank %}
+                "sku": "{{ variant.sku }}",
+              {% endif %}
+              {% if variant.weight != blank %}
+                "weight": {
+                  "@type": "QuantitativeValue",
+                  {% if variant.weight_unit != blank %}
+                    "unitCode": "{{ variant.weight_unit }}",
+                  {% endif %}
+                  "value": "{{ variant.weight | weight_with_unit: variant.weight_unit }}"
+                },
+              {% endif %}
+              "url": "{{ shop.url }}{{ variant.url }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  {% endif %}
+}
+</script>

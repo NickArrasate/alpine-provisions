@@ -1,0 +1,284 @@
+<div class="collection-items-box alpine-collection-items ap-bg">
+  <div class="section-title-box">
+    <h5>{{ section.settings.title_1 | escape  | capitalize | replace: '-', ' ' }}</h5>
+  </div>
+  <div class="row d-flex align-items-baseline" style="padding: 0 5%;">
+    {%- assign collection = collections[section.settings.collection_1] -%}
+    {% for product in collection.products %}
+    <div class="col-sm-6 col-md-4 collection-card">
+        {% if product.featured_image != blank %}
+          <a href="{{ product.url | within: collection }}">
+            {% include 'responsive-image' with
+              image: product.featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        {% endif %}
+
+        <p class="text-center">
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </p>
+        <a class="btn collection-product-button " href="{{ product.url | within: collection }}">
+        {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              {{ 'products.product.on_sale' | t }}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% else %}
+
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% endif %}
+
+          {% if product.compare_at_price > product.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </a>
+      </div>
+
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="collection-items-box alpine-collection-items ap-bg">
+<div class="section-title-box">
+  <h5>{{ section.settings.title_2 | escape  | capitalize | replace: '-', ' ' }}</h5>
+</div>
+  <div class="row d-flex align-items-baseline" style="padding: 0 5%;">
+    {%- assign collection = collections[section.settings.collection_2] -%}
+    {% for product in collection.products %}
+    <div class="col-sm-6 col-md-4 collection-card">
+        {% if product.featured_image != blank %}
+          <a href="{{ product.url | within: collection }}">
+            {% include 'responsive-image' with
+              image: product.featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        {% endif %}
+
+        <p class="text-center">
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </p>
+        <a class="btn collection-product-button " href="{{ product.url | within: collection }}">
+        {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              {{ 'products.product.on_sale' | t }}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% else %}
+
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% endif %}
+
+          {% if product.compare_at_price > product.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </a>
+      </div>
+
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+<div class="collection-items-box alpine-collection-items ap-bg">
+<div class="section-title-box">
+  <h5>{{ section.settings.title_3 | escape  | capitalize | replace: '-', ' ' }}</h5>
+</div>
+  <div class="row d-flex align-items-baseline" style="padding: 0 5%;">
+    {%- assign collection = collections[section.settings.collection_3] -%}
+    {% for product in collection.products %}
+    <div class="col-sm-6 col-md-4 collection-card">
+        {% if product.featured_image != blank %}
+          <a href="{{ product.url | within: collection }}">
+            {% include 'responsive-image' with
+              image: product.featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        {% endif %}
+
+        <p class="text-center">
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </p>
+        <a class="btn collection-product-button " href="{{ product.url | within: collection }}">
+        {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              {{ 'products.product.on_sale' | t }}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% else %}
+
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% endif %}
+
+          {% if product.compare_at_price > product.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </a>
+      </div>
+
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="about-image-break" style="background-image: url('{{ section.settings.image_break | img_url: '1200x1200'}}'); background-position:center; background-size: cover; background-repeat: no-repeat; height: 300px;">
+</div>
+
+{% schema %}
+  {
+    "name": "Collections by Scent",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title_1",
+        "label": "Collection 1 Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection_1",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Collection 2 Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection_2",
+        "type": "collection",
+        "label": "Collection 2"
+      },
+      {
+        "type": "text",
+        "id": "title_3",
+        "label": "Collection 3 Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection_3",
+        "type": "collection",
+        "label": "Collection 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_break",
+        "label": "Image Break Bottom"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collections by scent - Alpine",
+        "category": "Collection"
+      }
+    ]
+
+  }
+{% endschema %}

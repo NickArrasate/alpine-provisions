@@ -1,0 +1,17 @@
+{% capture link_name %}
+    {% if page.url contains "alpine" or collection.url contains "alpine" or product.url contains "alpine" %}
+        /pages/store-locator-alpine
+    {% elsif page.url contains "chasen" or collection.url contains "chasen" or product.url contains "chasen" %}
+        /pages/store-locator-chasen
+    {% else %}
+        /pages/store-locator
+    {% endif %}
+{% endcapture %}
+
+<li class="nav-item">
+    {% if page.url contains "alpine" or collection.url contains "alpine" or blog.url contains "alpine" or product.url contains "alpine" or page.template_suffix contains "alpine" or product.template_suffix contains "alpine" or collection.template_suffix contains "alpine" %}
+        <a href="{{ link_name }}"><img src="{{ 'marker-dark.svg' | asset_url | strip }}" style="max-width: 25px; height: 20px; margin-top: -5px;"> <span class='d-md-none d-lg-none d-xl-none'>&nbsp;Find Us</span></a>
+    {% else %}
+        <a href="{{ link_name }}"><img src="{{ 'marker.svg' | asset_url | strip }}" style="max-width: 25px; height: 20px; margin-top: -5px;"><span class='d-md-none d-lg-none d-xl-none'>&nbsp;Find Us</span></a>
+    {% endif %}
+</li>

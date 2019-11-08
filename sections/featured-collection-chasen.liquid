@@ -1,0 +1,76 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Featured Collection" section in the theme editor.
+
+  Theme Store required settings
+  - Collection
+
+  Theme Store optional settings
+  - Heading: title of the featured collection section
+{%- endcomment -%}
+<section class="featured-collection contained">
+  <!-- {% if section.settings.title != blank %}
+    <h2 class="featured-collection__title">{{ section.settings.title | escape }}</h2>
+  {% endif %} -->
+
+<div class="row">
+  {%- assign collection = collections[section.settings.collection] -%}
+
+  {% for product in collection.products limit: 3 %}
+  <div class="col-sm-4 d-flex flex-column align-items-center justify-content-between" style="padding: 0;">
+  <div style="background-image: url('{{ product.featured_image | img_url: '1000x1000' }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 305px; width: 100%;">
+  </div>
+  <div class="d-flex flex-column align-items-center justify-content-between" style="padding: 15px">
+      <p>{{ product.title | escape }}</p>
+        <span>
+        {% if product.compare_at_price > product.price %}
+          {% if product.price_varies %}
+            {%- assign sale_price = product.price | money -%}
+            {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+          {% else %}
+            {{ 'products.product.on_sale' | t }}
+            {{ product.price | money }}
+          {% endif %}
+        {% else %}
+          {% if product.price_varies %}
+            {%- assign price = product.price | money -%}
+            {{ 'products.product.from_text_html' | t: price: price }}
+          {% else %}
+            {{ product.price | money }}
+          {% endif %}
+        {% endif %}
+      </span>
+    <a href="{{ product.url | within: collection }}" class="btn btn-small">
+      <span>Shop Now</span>
+    </a>
+    </div>
+  </div>
+
+  {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection - Chasen",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

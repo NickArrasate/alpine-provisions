@@ -1,0 +1,8 @@
+
+{% assign has_sale_type = false %}
+  {% for tag in product.tags %}
+    {% if tag contains 'no-sale' %}
+    {% assign has_sale_type = true %}
+      <h5 class="no-sale-tag text-center">Promotion Does Not Apply</h5>
+    {% endif %}
+  {% endfor %}

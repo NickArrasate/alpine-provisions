@@ -1,0 +1,60 @@
+<div class="top-nav-box" style="position:relative">
+{% include "brand-nav" %}
+{% include "announcement-bar" %}
+</div>
+{% schema %}
+{
+  "name": "Preheader",
+  "settings": [
+    {
+    "type": "checkbox",
+    "id": "announcement_bar_enabled",
+    "label": "Show announcement",
+    "default": false
+    },
+    {
+    "type": "range",
+    "id": "speed",
+    "min": 100,
+    "max": 1000,
+    "step": 10,
+    "unit": "ms",
+    "label": "announcement bar speed",
+    "default": 300
+    }
+    ],
+    "blocks": [
+    {
+        "type": "announcement",
+        "name": "Announcement bar",
+        "settings": [
+        {
+            "type": "text",
+            "id": "message",
+            "label": "Announcement message"
+        },
+        {
+            "type": "color",
+            "id": "background",
+            "label": "Message Background Color",
+            "default": "#000"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Message Text Color",
+            "default": "#fff"
+        }
+        ]
+    }
+    ],
+    "presets": [
+    {
+        "name": "preheader",
+        "category": "Headers"
+    }
+    ]
+}
+
+
+{% endschema %}

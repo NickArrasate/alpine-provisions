@@ -1,0 +1,13 @@
+{%- if section.settings.announcement_bar_enabled -%}
+<div class="announcement-bar">
+<div id="announcement-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="{{ section.settings.speed | times: 10 }}">
+<div class="carousel-inner">
+{% for block in section.blocks  %}
+    <div class="carousel-item {% if forloop.first %}active {% endif %}text-center" style="">
+    <p class="d-block w-100" alt="First slide" style="background-color: {{ block.settings.background }}; color: {{ block.settings.text_color }}">{{ block.settings.message }}</p>
+    </div>
+{% endfor %}
+</div>
+</div>
+</div>
+{%- endif -%}

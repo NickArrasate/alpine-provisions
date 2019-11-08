@@ -1,0 +1,103 @@
+
+{% if blog.url contains "alpine" %}
+  {% layout 'alpine' %}
+  {% section "pre-header" %}
+  {% section 'header-blogs-alpine' %}
+{% elsif blog.url contains "chasen" %}
+  {% layout 'chasen' %}
+  {% section "pre-header" %}
+  {% section 'header-blogs-chasen' %}
+{% else %}
+  {% layout 'theme' %}
+  {% section "pre-header" %}
+  {% section 'header-blogs-pangea' %}
+{% endif %}
+
+{% paginate blog.articles by 12 %}
+
+  {%- assign blog_title = blog.title -%}
+
+  {% if current_tags %}
+    {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }} {% endcapture %}
+  {% endif %}
+  {% if blog.all_tags.size > 0 %}
+  <div class='blog-cat-bar'>
+  <div class="contained">
+    <div class="row d-flex align-items-center justify-content-center">
+      {% if current_tags %}
+        {% capture blog_title %}{{ blog.title | link_to: blog.url | capitalize }}{% endcapture %}
+        <div class="category-link">{{ 'All' | link_to: blog.url | capitalize }}</div>
+      {% endif %}
+      {% for tag in blog.all_tags %}
+        {% if current_tags contains tag %}
+          <div class="category-link">{{ tag | capitalize }}</div>
+        {% else %}
+          <div class="category-link">{{ tag | link_to_tag: tag | capitalize }}</div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    </div>
+    </div>
+  {% endif %}
+
+
+  {% comment %}
+
+  Article Previews
+  ====================
+  {% endcomment %}
+
+  {% for article in blog.articles %}
+  <div class="blog-preview-block" style="background-image: url('{{ article.image | img_url: '1200x1200'}}'); background-size: cover; background-position:center;">
+    {% capture date %}{{ article.published_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+
+<div class="blog-posted-by">
+    <p>
+      {{ 'blogs.article.author_on_date_html' | t:  date: date, author: article.author }}
+    </p>
+    </div>
+    <div class="blog-preview-inner contained text-center">
+      <a href="{{ article.url }}">
+    <h3>
+      {{ article.title }}
+    </h3>
+    <div class="rte">
+      {% if article.excerpt.size > 0 %}
+        {{ article.excerpt }}
+      {% else %}
+        <p>
+          {{ article.content | strip_html | truncatewords: 25 }}
+        </p>
+      {% endif %}
+    </div>
+
+    {% if blog.comments_enabled? or article.tags.size > 0 %}
+      <ul>
+        {% if blog.comments_enabled? %}
+          <li>
+            <a href="{{ article.url }}#comments">
+              {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+            </a>
+          </li>
+        {% endif %}
+
+        {% if article.tags.size > 0 %}
+          {% for tag in article.tags %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+              {% unless forloop.last %}&nbsp;{% endunless %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    {% endif %}
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+
+{% endpaginate %}

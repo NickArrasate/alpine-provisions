@@ -1,0 +1,99 @@
+<div id="testimonialCarousel" class="carousel slide " data-ride="carousel" data-interval="6000">
+  <ol class="carousel-indicators testimonial-indicators" style="background-color: {{ section.settings.background_color }}">
+    {% for block in section.blocks %}
+    <li data-target="#testimonialCarousel" data-slide-to="{{ forloop.index0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+
+    {% for block in section.blocks %}
+
+    {% capture image_layout %}
+      <div class="col-md-5 col-lg-4 col-xl-3 testimonial-image" style="background-image: url('{{ block.settings.testimonial_image | img_url: 'large'}}')">
+        <!-- {% include 'responsive-image' with
+          image: block.settings.testimonial_image,
+          max_width: 1200,
+          max-hight: 1200
+        %} -->
+      </div>
+    {% endcapture %}
+
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="row testimonial-row">
+            {% if block.settings.layout == 'left' %}
+            {{ image_layout }}
+            {% endif %}
+            <div class="col-md-7 col-lg-8 col-xl-9 testimonial-box" style="background-color: {{ section.settings.background_color }}">
+              <div class="testimonial-text-box">
+                <p>{{ block.settings.testimonial }}</p>
+                <p class="testimonial-byline {% if block.settings.layout == 'right' %}right{% else %}left{% endif %}">{{ block.settings.testimonial_byline }}</p>
+              </div>
+            </div>
+            {% if block.settings.layout == 'right' %}
+            {{ image_layout }}
+            {% endif %}
+          </div>
+        </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials Slider",
+  "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Section Background"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Testimonial Content",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "testimonial",
+          "label": "Testimonial Content"
+        },
+        {
+          "type": "text",
+          "id": "testimonial_byline",
+          "label": "Byline"
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial_image",
+          "label": "Testimonial Image"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Image alignment",
+          "default": "right",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Slider",
+      "category": "Features"
+    }
+  ]
+}
+{% endschema %}

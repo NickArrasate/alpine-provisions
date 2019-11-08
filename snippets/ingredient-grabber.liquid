@@ -1,0 +1,18 @@
+
+
+
+
+
+<div class="row d-flex justify-content-start">
+  {% for mf in product.metafields["global"] %}
+  <div class="col">
+      {% assign index = "ingredient_" | append: forloop.index %}
+      {% assign field = index | append: ".ingredi" %}
+      {% assign img_include = product.metafields[field]["image"] %}
+      {% if product.metafields[field]["is_featured"] %}
+      <img class="featured-ingredient-image" src='{{ img_include }}' alt="">
+      <small>{{ product.metafields[field]["common-name"] }}, index: {{ forloop.index }}</small>
+      {% endif %}
+  </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,150 @@
+<div class="about-content">
+  <div style="background-color: #fff;">
+    <div class="row">
+      <!-- <div class="col-5" style="background-image: url('{{ section.settings.image_1.src | img_url: '800x800'}}'); background-position: center; background-size: cover;"> -->
+      <div class="col-sm-5 about-img">
+        <img src='{{ section.settings.image_1.src | img_url: '800x800'}}' />
+      </div>
+      <div class="col-sm-7 d-flex flex-column align-items-start justify-content-center">
+      <div style="padding: 4em 0;max-width: 600px;">
+      <h2>{{ section.settings.title_1 }}</h2>
+      <p>{{ section.settings.copy_1 }}</p>
+      <p>{{ section.settings.copy_1b }}</p>
+      <a class="btn btn-about" href="/pages/our-founder/">Meet the Founder</a>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: rgba(141,156,156,.17);">
+    <div class="row">
+        <div class="col-7 d-flex flex-column align-items-end justify-content-center text-right">
+            <div style="padding: 4em 0;max-width: 600px;">
+
+        <h2>{{ section.settings.title_2 }}</h2>
+        <p>{{ section.settings.copy_2 }}</p>
+        <a class="btn btn-about alt" href="/pages/pangea-philosophy/">Philosophy</a>
+        <a class="btn btn-about alt" href="/collections/skincare/">Shop Skincare</a>
+      </div>
+      </div>
+      <div class="col-5" style="background-image: url('{{ section.settings.image_2.src | img_url: '800x800'}}'); background-position: center; background-size: cover;">
+      </div>
+    </div>
+  </div>
+  <div style="background-color: #8d9c9c;">
+    <div class="row">
+      <div class="col-5" style="background-image: url('{{ section.settings.image_3.src | img_url: '800x800'}}'); background-position: center; background-size: cover;">
+      </div>
+      <div class="col-7 d-flex flex-column align-items-start justify-content-center">
+          <div style="padding: 4em 0;max-width: 600px;">
+
+        <h2 class="text-white">{{ section.settings.title_3 }}</h2>
+        <p class="text-white">{{ section.settings.copy_3 }}</p>
+        <a class="btn btn-about" href="/pages/ingredient-glossary/">Ingredient Glossary</a>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: rgba(141,156,156,.17);;">
+    <div class="row">
+      <div class="col-sm-7 d-flex flex-column align-items-end justify-content-center text-right">
+          <div style="padding: 4em 0;max-width: 600px;">
+
+        <h2>{{ section.settings.title_4 }}</h2>
+        <p>{{ section.settings.copy_4 }}</p>
+      </div>
+      </div>
+      <div class="col-sm-5" style="background-image: url('{{ section.settings.image_4.src | img_url: '800x800'}}'); background-position: center; background-size: cover; min-height:240px;">
+      </div>
+    </div>
+  </div>
+  <div style="background-color: #8d9c9c;">
+    <div class="row">
+      <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+          <div style="padding: 4em 0;max-width: 600px; text-align: center; margin: auto 0;">
+
+      <h2 class="text-white">AWARDS + PRESS</h2>
+      <p class="text-white">{{ section.settings.copy_5 }}</p>
+      <a class="btn btn-about" href="/pages/pangea-awards-and-press/">Awards + Press</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+    {
+        "settings":[
+            {
+              "type" : "image_picker",
+              "id": "image_1",
+              "label": "image section 1"
+            },
+            {
+              "type": "text",
+              "id": "title_1",
+              "label": "Section 1 Title"
+            },
+            {
+              "type": "text",
+              "id": "copy_1",
+              "label": "Section 1 Copy"
+            },
+            {
+              "type": "text",
+              "id": "copy_1b",
+              "label": "Section 1 Copy line 2"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_2",
+                "label": "image section 2"
+            },
+            {
+              "type": "text",
+              "id": "title_2",
+              "label": "Section 2 Title"
+            },
+            {
+              "type": "text",
+              "id": "copy_2",
+              "label": "Section 2 Copy"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_3",
+                "label": "image section 3"
+            },
+            {
+              "type": "text",
+              "id": "title_3",
+              "label": "Section 3 Title"
+            },
+            {
+              "type": "text",
+              "id": "copy_3",
+              "label": "Section 3 Copy"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_4",
+                "label": "image section 4"
+            },
+            {
+              "type": "text",
+              "id": "title_4",
+              "label": "Section 4 Title"
+            },
+            {
+              "type": "text",
+              "id": "copy_4",
+              "label": "Section 4 Copy"
+            },
+            {
+              "type": "text",
+              "id": "copy_5",
+              "label": "Section 5 Copy"
+            }
+
+        ]
+    }
+
+{% endschema %}

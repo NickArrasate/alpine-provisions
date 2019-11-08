@@ -1,0 +1,68 @@
+{% layout 'theme' %}
+{% section "pre-header" %}
+{% section 'header-cart' %}
+
+{% paginate search.results by 12 %}
+<div class="contained no-header">
+  <h1>
+    {% if search.performed %}
+      <span class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}:</span>
+        {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {% else %}
+      {{ 'general.search.title' | t }}
+    {% endif %}
+  </h1>
+
+<form action="/search" method="get" role="search" class="input-group" >
+<input type="search"
+name="q"
+id="Search"
+class="form-control"
+value="{{ search.terms | escape }}"
+placeholder="{{ 'general.search.placeholder' | t }}">
+<div class="input-group-append">
+  <button type="submit" class="btn btn-small">
+    {% include 'icon-search' %}
+    <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+  </button>
+</div>
+</form>
+
+  {% if search.performed %}
+    {% if search.results_count == 0 %}
+      <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+    {% else %}
+      <h2 class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}</h2>
+      <div class="row d-flex align-items-end">
+        {% for item in search.results %}
+          <div class="col-sm-6 col-md-3 collection-card search">
+            <a href="{{ item.url | within: collection }}">
+              {% assign featured_image = item.image | default: item.featured_image %}
+              {% if featured_image != blank %}
+                {{ featured_image | img_url: '240x240' | img_tag }}
+              {% endif %}
+            </a>
+            <a href="{{ item.url | within: collection }}">
+            {% if item.object_type == 'article' %}
+              <span class="text-center">( Blog Post )</span>
+            {% endif %}
+            <h4>{{ item.title }}</h4>
+            {% if item.object_type == 'product' %}
+              <p>Starting <span>{{ item.price | money }}</span> – Learn More...</p>
+            {% else %}
+              <p>{{ item.content | strip_html | truncatewords: 6 }}...</p>
+            {% endif %}
+          </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+{% endpaginate %}
+</div>
+{% include 'resci_search' %}

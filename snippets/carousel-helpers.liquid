@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#dualCarousel').carousel({
+      interval: 6000
+    });
+    $('#carousel-header').carousel({
+      interval: 6000
+    });
+    $('.dual-carousel .carousel-item').each(function(){
+        var next = $(this).next();
+        if (!next.length) {
+        next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+        for (var i=0;i<2;i++) {
+            next=next.next();
+            if (!next.length) {
+              next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+          }
+    });
+    $('#glowCarousel').carousel({
+      interval: 7000
+    });
+
+    $('.glow-carousel .carousel-item').each(function(){
+        var next = $(this).next();
+        if (!next.length) {
+        next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+        for (var i=0;i<2;i++) {
+            next=next.next();
+            if (!next.length) {
+              next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+          }
+    });
+});
+</script>

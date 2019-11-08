@@ -1,0 +1,29 @@
+<!-- RetentionScience start -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.js"></script>
+<script type="text/javascript">
+  window._rsq = window._rsq || [];
+    window._rsq.push(['_setSiteId', '672']); // replace site_id with your static Site ID
+   window._rsq.push(['_enableOnsite']);
+
+{% if customer %}
+  window._rsq.push(['_setUserId', '{{ customer.id }}']);
+  window._rsq.push(['_setUserEmail', '{{ customer.email }}']);
+{% endif %}
+
+/*** EVENT SPECIFIC CODE ***/
+{% for item in cart.items %}
+  window._rsq.push(['_addItem', { 'id':'{{ item.id }}', 'name':'{{ item.title }}', 'price':'{{ item.price | money_without_currency }}' }]);
+{% endfor %}
+  window._rsq.push(['_setAction', 'shopping_cart']);
+  
+window._rsq.push(['_track']);
+
+(function() {
+  var rScix = document.createElement('script');
+    rScix.type = 'text/javascript';
+    rScix.async = true;
+   rScix.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1stxfv94hrhia.cloudfront.net/waves/v3/w.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(rScix);
+  })();
+</script>
+<!-- RetentionScience end -->

@@ -1,0 +1,342 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Pangea Organics v0",
+    "theme_version": "0.0.1",
+    "theme_author": "Bowtie.co",
+    "theme_documentation_url": "https:\/\/github.com\/pangeaorganics",
+    "theme_support_url": "https:\/\/github.com\/pangeaorganics",
+    "theme_packaged_with": "@shopify\/slate-tools@1.0.0-beta.2"
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "range",
+        "id": "home_header_height",
+        "label": "Home Header Height",
+        "default": 80,
+        "min": 2,
+        "max": 100
+      },
+      {
+        "type": "range",
+        "id": "page_header_height",
+        "label": "Inside Page Header Height",
+        "default": 35,
+        "min": 2,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#c4cdd5",
+        "info": "Buttons and special ornaments"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Main Body Text",
+        "default": "#161d25"
+      },
+      {
+        "type": "color",
+        "id": "color_main_bg",
+        "label": "Footer Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": "Body Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text--currently unused",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_sale_text",
+        "label": "Sales Text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_small_button",
+        "label": "Small Button Background",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_small_button_text",
+        "label": "Small Button Text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_text_field",
+        "label": "Text Field",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_text_field_text",
+        "label": "Text Field Text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_button",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button Text Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_image_overlay_text",
+        "label": "Image Overlay Text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_image_overlay",
+        "label": "Image Overlay",
+        "default": "#fff"
+      },
+      {
+        "type": "range",
+        "id": "image_overlay_opacity",
+        "label": "Image Overlay Opacity",
+        "min": 0,
+        "max": 100,
+        "default": 50
+      },
+      {
+        "type": "color",
+        "id": "color_borders",
+        "label": "Border Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "Error Text",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_pangea_modal",
+        "label": "Pangea Modal Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_pangea_modal_button",
+        "label": "Pangea Modal Button Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_alpine_modal",
+        "label": "Alpine Modal Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_alpine_modal_button",
+        "label": "Alpine Modal Button Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_chasen_modal",
+        "label": "Chasen Modal Background",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "color_chasen_modal_button",
+        "label": "Chasen Modal Button Color",
+        "default": "#fff"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "default": "helvetica_n4",
+        "label": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "default": "helvetica_n4",
+        "label": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "helvetica_n4",
+        "label": "Button Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_base_font",
+        "default": "helvetica_n4",
+        "label": "Base Text text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_bold_product_titles",
+        "default": "helvetica_n4",
+        "label": "Product Titles"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "min": 4,
+        "max": 36,
+        "step": 2,
+        "unit": "px",
+        "label": "Base Font Size",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "type_header_base_size",
+        "min": 4,
+        "max": 36,
+        "step": 2,
+        "unit": "px",
+        "label": "Header Font Size",
+        "default": 24
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing image"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Image",
+        "info": "Shown when sharing a link on social media. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/troubleshooting\/showing-social-media-thumbnail-images\/) about image thumbnails."
+      },
+      {
+        "type": "header",
+        "content": "Social sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable sharing for blog articles",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sharing links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat link"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "Youtube link"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo link"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

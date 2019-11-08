@@ -1,0 +1,48 @@
+<div class="brand-nav-founder brand-nav" style="">
+  <ul class="brand-list" style="margin-bottom: 0;">
+  {% for block in section.blocks %}
+  {% assign image = block.settings.image %}
+  {% assign alt = block.settings.alt %}
+  {% assign link = block.settings.link %}
+    <li>
+      <a href="{{ link }}">
+        <img class="lazyload brand-{{ forloop.index }}" src="{{ image | img_url: '800x' }}" alt="{{ image.alt }}" />
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+
+{% schema %}
+  {
+  "name": "Brand Nav Founder",
+  "class": "brand-logos",
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Brand Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "image should be 400px wide"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+  {
+    "name": "Brand Nav Founder",
+    "category": "Founder"
+    }
+  ]
+}
+{% endschema %}

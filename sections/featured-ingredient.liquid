@@ -1,0 +1,249 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add the "Image with text" section in the theme editor.
+
+  Theme Store required settings
+  - Image
+  - Heading: title of the block
+  - Text: description of the block
+
+  Theme Store optional settings
+  - Button label: label associated with the button
+  - Button link: link of the button
+{%- endcomment -%}
+{%- assign product = all_products[section.settings.product] -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+<section class="featured-ingredient-section row">
+  {% capture image_layout %}
+    <div class="col-md-6">
+      <div class="ingredient-overlay">
+        <div class="overlay-bg" style="background-color: {{ section.settings.overlay_color }}; opacity: {{ section.settings.overlay_opacity | times: 0.01 }}">
+
+        </div>
+        <div class="col-12">
+          <h2 class="text-white">{{ section.settings.overlay_title }}</h2>
+        </div>
+        <div class="col-12">
+          <small class="text-white">{{ section.settings.overlay_subtitle }}</small>
+        </div>
+        <div class="row d-flex justify-content-start">
+
+          {% for mf in product.metafields["global"]  limit: 3 %}
+          <div class="col-3 d-flex align-items-center">
+              {% assign index = "ingredient_" | append: forloop.index %}
+              {% assign field = index | append: ".ingredi" %}
+              {% assign img_include = product.metafields[field]["image"] %}
+              {% if product.metafields[field]["is_featured"] %}
+              <img class="featured-ingredient-image" src='{{ img_include }}' alt="">
+              <small>{{ product.metafields[field]["common-name"] }}</small>
+              {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <!-- {% include 'ingredient-grabber' %} -->
+      </div>
+      {% if section.settings.bg_image != blank %}
+        {% include 'responsive-image' with
+          image: section.settings.bg_image,
+          max_width: 2000,
+          max_height: 1000
+        %}
+
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  {% if section.settings.layout == 'left' %}
+    {{ image_layout }}
+  {% endif %}
+  <div class="col-md-6"  style="background-color: {{ section.settings.textbox_color }}" >
+    <div class="row " style="height: 100%;">
+      <div class="col-sm-6 d-flex align-items-center justify-content-center">
+        <h1>{{ section.settings.product.title }}</h1>
+          {% if featured_image.src != blank %}
+            {% include 'responsive-image' with
+              image: featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          {% endif %}
+      </div>
+      <div class="col-sm-6 d-flex flex-column align-items-start justify-content-around">
+        {% if section.settings.title != blank %}
+          <h2 class="text-white">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div>{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.feature_list != blank %}
+        <div class="ingredient-feature-list">
+          {{ section.settings.feature_list }}
+        </div>
+        {% endif %}
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <a class="btn align-self-center" type="submit" href="{{ section.settings.button_link }}">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if section.settings.layout == 'right' %}
+    {{ image_layout }}
+  {% endif %}
+</section>
+
+{% schema %}
+  {
+    "name": "Featured Ingredient",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Image alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "text",
+        "id": "overlay_title",
+        "label": "Overlay Title",
+        "default": "Sun Kissed Lavender"
+      },
+      {
+        "type": "text",
+        "id": "overlay_subtitle",
+        "label": "Overlay Title",
+        "default": "Sun Kissed Lavender"
+      },
+      {
+        "type": "html",
+        "id": "feature_list",
+        "label": "Ingredient Features List"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay Color"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "Overlay Opacity",
+        "default": 2,
+        "min": 1,
+        "max": 100
+      },
+      {
+        "type": "color",
+        "id": "textbox_color",
+        "label": "Textbox Background Color"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Ingredient",
+        "category": "Features"
+      }
+    ]
+  }
+{% endschema %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "url": "{{ shop.url }}{{ product.url }}",
+  {% if product.featured_image %}
+    {% assign image_size = product.featured_image.width | append: 'x' %}
+    "image": [
+      "https:{{ product.featured_image.src | img_url: image_size }}"
+    ],
+  {% endif %}
+  "description": "{{ product.description | strip_html | escape }}",
+  {% if current_variant.sku != blank %}
+    "sku": "{{ current_variant.sku }}",
+  {% endif %}
+  "brand": {
+    "@type": "Thing",
+    "name": "{{ product.vendor | escape }}"
+  },
+  {% if product.variants %}
+    "offers": [
+      {% for variant in product.variants %}
+        {
+          "@type" : "Offer",
+          "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : "{{ variant.price | divided_by: 100.00 }}",
+          "priceCurrency" : "{{ shop.currency }}",
+          "url" : "{{ shop.url }}{{ variant.url }}",
+          "itemOffered" :
+          {
+              "@type" : "Product",
+              {% if variant.image %}
+                {% assign variant_image_size = variant.image.width | append: 'x' %}
+                "image": "http:{{ variant.image.src | img_url: variant_image_size }}",
+              {% endif %}
+              {% if variant.title != blank %}
+                "name" : "{{ variant.title | escape }}",
+              {% endif %}
+              {% if variant.sku != blank %}
+                "sku": "{{ variant.sku }}",
+              {% endif %}
+              {% if variant.weight != blank %}
+                "weight": {
+                  "@type": "QuantitativeValue",
+                  {% if variant.weight_unit != blank %}
+                    "unitCode": "{{ variant.weight_unit }}",
+                  {% endif %}
+                  "value": "{{ variant.weight | weight_with_unit: variant.weight_unit }}"
+                },
+              {% endif %}
+              "url": "{{ shop.url }}{{ variant.url }}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  {% endif %}
+}
+</script>

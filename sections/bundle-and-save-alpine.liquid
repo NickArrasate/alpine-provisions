@@ -1,0 +1,238 @@
+{%- assign collection = collections[section.settings.collection] -%}
+<div class="contained">
+<div class="collection-items-box">
+<h3 class='underlined uppercase' style="margin-top: 2em;">{{ section.settings.title }}</h3>
+<h4>{{ section.settings.subtitle}}</h4>
+<p>{{section.settings.text}}</p>
+<div class="row" style="margin-bottom:3em;">
+  <div class="col-sm-4">
+    <div class="bundle-info">
+      <h4><span class="ritual-title-number near">1</span>{{section.settings.step_1_text}}</h4>
+    </div>
+    <div class="bundle-info">
+      <h4><span class="ritual-title-number near">2</span>{{section.settings.step_2_text}}</h4>
+    </div>
+    <div class="bundle-info">
+      <h4><span class="ritual-title-number near">3</span>{{section.settings.step_3_text}}</h4>
+    </div>
+    {% comment %} <div class="bundle-info">
+      <h4><span class="ritual-title-number near">4</span>{{section.settings.step_4_text}}</h4>
+    </div> {% endcomment %}
+  </div>
+  <div class="col-sm-5">
+      <div class="offers-yellow-box">
+      <h4 class="">{{section.settings.step_5_text}}</h4>
+    </div>
+  </div>
+  <div class="col-sm-3">
+  </div>
+</div>
+{% if section.settings.show_cols %}
+<div class="row d-flex align-items-end">
+    {% for block in section.blocks %}
+    {%- assign collection2 = collections[block.settings.collection] -%}
+    {%- assign product2 = all_products[block.settings.custom-product] -%}
+      <div class="col-sm-6 col-md-4 col-lg-3 collection-card">
+      {% if product2.url %}
+        <a href="{{ product2.url }}">
+          {% include 'responsive-image' with
+            image: block.settings.image,
+            max_width: 700,
+            max_height: 800
+          %}
+        </a>
+        <p class="text-center">
+          <a href="{{ product2.url }}">{{ block.settings.title }}</a>
+        </p>
+        <a class="btn collection-product-button" href="{{ product2.url }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+          <a href="{{ collection2.url }}">
+            {% include 'responsive-image' with
+              image: block.settings.image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        <p class="text-center">
+          <a href="{{ collection2.url }}">{{ block.settings.title }}</a>
+        </p>
+        <a class="btn collection-product-button" href="{{ collection2.url }}">
+          {{ block.settings.button_text }}
+        </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+  <div class="row d-flex align-items-end">
+    {% for product in collection.products %}
+      <div class="col-sm-6 col-md-4 col-lg-3 collection-card">
+        {% if product.featured_image != blank %}
+          <a href="{{ product.url | within: collection }}">
+            {% include 'responsive-image' with
+              image: product.featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        {% endif %}
+        <p class="text-center">
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </p>
+        <a class="btn collection-product-button" href="{{ product.url | within: collection }}">
+        {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              {{ 'products.product.on_sale' | t }}
+              {{ product.price | money }}
+            {% endif %}
+          {% else %}
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          {% endif %}
+          {% if product.compare_at_price > product.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </a>
+      </div>
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p></p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Bundle and Save Alpine",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "How It Works"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Select Your Bundle And Save"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "General Copy",
+        "default": "How It Works"
+      },
+      {
+        "type": "text",
+        "id": "step_1_text",
+        "label": "Step 1 Text",
+        "default": "Choose Your Offer"
+      },
+      {
+        "type": "text",
+        "id": "step_2_text",
+        "label": "Step 2 Text",
+        "default": "Select your interval"
+      },
+      {
+        "type": "text",
+        "id": "step_3_text",
+        "label": "Step 3 Text",
+        "default": "Customize your selection"
+      },
+      {
+        "type": "text",
+        "id": "step_4_text",
+        "label": "Step 4 Text",
+        "default": "Check out as usual"
+      },
+      {
+        "type": "textarea",
+        "id": "step_5_text",
+        "label": "Step 5 Text",
+        "default": "<p>Save some money, twirl with joy, and thank yourself for treating your body/mind/soul to the most nourishing products on earth</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cols",
+        "label": "Show Bundles Row?",
+        "default": true
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Bundle Collection"
+      }
+    ],
+    "blocks":[
+      {
+        "type": "product",
+        "name": "Bundles to Include",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title for Link",
+            "default": "Build A Bundle"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Text for Button",
+            "default": "Build A Bundle Button"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Which Collection?"
+          },
+          {
+            "type": "product",
+            "id": "custom-product",
+            "label": "Or Product?"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Pangea Subscription Bundles",
+        "category": "Features"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,29 @@
+<script type='text/javascript'>
+    var product = '{{ product.id }}';
+    var customer_id = '{{ customer.id }}';
+    var customer_email = '{{ customer.email }}';
+    var _rsq = _rsq || [];
+        _rsq.push(['_setSiteId', '672' ]); // replace site_id with your static Site ID
+        _rsq.push(['_enableOnsite']);
+
+    if (customer_id  != '') { // replace condition with your parameters for checking if a user is logged in
+        _rsq.push(['_setUserId', customer_id ]); // replace user_id with your dynamic user_id variable
+        _rsq.push(['_setUserEmail', customer_email ]); // replace user_email with your dynamic user_email variable
+    }
+
+/*** EVENT SPECIFIC CODE ***/
+_rsq.push(['_addItem', {'id': product}]); // replace item_id with your dynamic item_id variable
+_rsq.push(['_setAction', 'shopping_cart']);
+/*** END EVENT SPECIFIC CODE ***/
+
+_rsq.push(['_track']);
+
+(function() {
+    var rScix = document.createElement('script');
+        rScix.type = 'text/javascript';
+        rScix.async = true;
+        rScix.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'd1stxfv94hrhia.cloudfront.net/waves/v3/w.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(rScix);
+    })();
+</script>
+

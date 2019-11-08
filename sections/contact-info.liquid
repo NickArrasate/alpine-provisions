@@ -1,0 +1,69 @@
+<div class="contained" style="padding: 2em 0;">
+    <div class="row">
+        <div class="col-sm-4 d-flex flex-column align-items-center justify-content-start">
+            <img src="{{ section.settings.icon_1 | img_url: '80x80'}}">
+            <h4>Phone</h4>
+            <p>{{ shop.phone }}</p>
+        </div>
+        <div class="col-sm-4 d-flex flex-column align-items-center justify-content-start">
+            <img src="{{ section.settings.icon_2 | img_url: '80x80'}}">
+            <h4>Support Hours</h4>
+            <p>Monday-Friday:</p>
+            <p>9AM-4PM MST</p>
+        </div>
+        <div class="col-sm-4 d-flex flex-column align-items-center justify-content-start">
+            <img src="{{ section.settings.icon_3 | img_url: '80x80'}}">
+            <h4>Location</h4>
+            <p>{{ shop.address.street }}</p>
+            <p>{{ shop.address.city }}, {{ shop.address.province }} {{ shop.address.zip }}</p>
+        </div>
+    </div>
+</div>
+{% unless page.url contains 'alpine' %}
+<div class="row">
+    <div class="col-4" style="background-image: url('{{ section.settings.image_1.src | img_url: '800x800'}}'); background-position: center; background-size: cover; height:278px;">
+    </div>
+    <div class="col-4" style="background-image: url('{{ section.settings.image_2.src | img_url: '800x800'}}'); background-position: center; background-size: cover; height:278px;">
+    </div>
+    <div class="col-4" style="background-image: url('{{ section.settings.image_3.src | img_url: '800x800'}}'); background-position: center; background-size: cover; height:278px;">
+    </div>
+</div>
+{% endunless %}
+{% schema %}
+    {
+        "settings":[
+            {
+                "type" : "image_picker",
+                "id": "icon_1",
+                "label": "Icon 1"
+            },
+            {
+                "type" : "image_picker",
+                "id": "icon_2",
+                "label": "Icon 2"
+            },
+            {
+                "type" : "image_picker",
+                "id": "icon_3",
+                "label": "Icon 3"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_1",
+                "label": "image section 1"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_2",
+                "label": "image section 2"
+            },
+            {
+                "type" : "image_picker",
+                "id": "image_3",
+                "label": "image section 3"
+            }
+
+        ]
+    }
+
+{% endschema %}

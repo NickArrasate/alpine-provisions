@@ -1,0 +1,387 @@
+{%- comment -%}
+Alpine alt header.
+It is available in the "Header" section in the theme editor.
+
+Theme Store required settings
+- Show announcement
+- Text: message to announce
+- Link: link of the announcement bar
+
+Theme Store optional settings
+- Home page only: only shows on the home page
+{%- endcomment -%}
+<section data-section-id="{{ section.id }}" data-section-type="" class="{% if section.settings.header-slider %}header-slider{% endif %}{% if page.url contains '/pages/' %} small-page-header{% elsif page.url contains '/collections/' %} small-page-header{% endif %}">
+  <div class="top-nav-box">
+  
+  
+    <header role="banner" class="header-menus {% if section.settings.header-slider %}has-slider{% endif %}">
+    {% include "nav-alpine" %}
+    </header>
+
+  </div>
+
+  {% if section.settings.header-slider %}
+
+  <div id="carousel-header" class="carousel slide w-100" data-ride="carousel">
+  {% if section.blocks.size > 1 %}
+  <ol class="carousel-indicators">
+  {% for block in section.blocks %}
+    <li data-target="#carousel-header" data-slide-to="{{ forloop.index0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+
+    {% endfor %}
+  </ol>
+{% endif %}
+  <div class="carousel-inner" role="listbox">
+  {% for block in section.blocks %}
+  {%- assign slider_product = all_products[block.settings.slider_product] -%}
+  {%- assign current_variant_1 = slider_product.selected_or_first_available_variant -%}
+  {%- assign featured_image_1 = current_variant_1.feature_image | default: slider_product.featured_image_1 -%}
+  {% capture image_layout %}
+    {% if block.settings.slider_product_image.src != blank %}
+      {%- assign custom_image = block.settings.slider_product_image.src -%}
+      <div class="col-7 col-lg-4 order-2 text-center">
+        <div class="header-feature-wrap">
+          <a href="{{ slider_product.url }}">
+          {% if block.settings.slider_product_image != blank %}
+          {% include 'responsive-image' with
+              image: custom_image,
+              max_width: 600,
+              max_height: 400
+            %}
+          {% else %}
+            {% include 'responsive-image' with
+              image: featured_image_1,
+              max_width: 600,
+              max_height: 400
+            %}
+          {% endif %}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  {% endcapture %}
+
+
+    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+      <img class="background-target-{{ forloop.index }}" style="width: 100%;" src="{{ block.settings.image | img_url: '1200x1200' }}" />
+        <div class="carousel-caption slideshow__text-content small-hide">
+              <div class="page-width">
+                <div class="row d-flex align-items-center header-feature contained">
+                  <div class="col-5 col-lg-4 offset-md-0 order-1 alpine-text-box">
+                    <div class="header-title">
+                        <h2 class="collection-title">
+                          {{ collection.handle | replace: '-', ' ' }}
+                        </h2>
+                      {% unless block.settings.subheading == blank %}
+                        <h3 class="slideshow__subtitle">
+                          {{ block.settings.subheading | escape }}
+                        </h3>
+                      {% endunless %}
+                      {% unless block.settings.cta_text == blank %}
+                      <a type="submit" name="header-cta" class="btn" href="{{ slider_product.url}}"><span>{{ block.settings.cta_text }}</span></a>
+                      {% endunless %}
+                    </div>
+                  </div>
+                  {{ image_layout }}
+                </div>
+              </div>
+      </div>
+      {% unless block.settings.title == blank %}
+       <div class="slideshow__text-content small-show"  style="background-color: {{ block.settings.bottom_box_color }};">
+              <div class="row d-flex align-items-center header-feature contained">
+                  <div class="col-6 alpine-text-box">
+                    <div class="header-title">
+                      {% unless block.settings.subheading == blank %}
+                        <h3 class="slideshow__subtitle">
+                          {{ block.settings.subheading | escape }}
+                        </h3>
+                      {% endunless %}
+                      {% unless block.settings.cta_text == blank %}
+                      <a type="submit" name="header-cta" class="btn" href="{{ slider_product.url}}"><span>{{ block.settings.cta_text }}</span></a>
+                      {% endunless %}
+                    </div>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="header-feature-wrap">
+                      <a href="{{ slider_product.url }}">
+                      {% if block.settings.slider_product_image != blank %}
+                      {% include 'responsive-image' with
+                          image: custom_image,
+                          max_width: 300,
+                          max_height: 600
+                        %}
+                      {% else %}
+                        {% include 'responsive-image' with
+                          image: featured_image_1,
+                          max_width: 300,
+                          max_height: 600
+                        %}
+                      {% endif %}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+      </div>
+      {% endunless %}
+    </div>
+    {% include "header-image-helper" %}
+    {% endfor %}
+  </div>
+  {% if section.blocks.size > 1 %}
+  <a class=" carousel-control-prev" href="#carousel-header" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class=" carousel-control-next" href="#carousel-header" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+  {% endif %}
+  </div>
+  {% endif %}
+
+  {% if section.blocks.size == 0 %}
+    <div class="placeholder-noblocks">
+      {{ 'homepage.onboarding.no_content' | t }}
+    </div>
+  {% endif %}
+  </div>
+
+</section>
+
+{% if section.settings.logo != blank %}
+<style>
+.logo-image {
+  display: block;
+  max-width: {{ section.settings.logo_max_width }}px;
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header Alpine Home",
+  "settings": [
+      {
+      "type": "checkbox",
+      "id": "announcement_bar_enabled",
+      "label": "Show announcement",
+      "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header-slider",
+        "label": "Has slideshow? (leave checked)",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "slideshow_height",
+        "label": "Section height",
+        "default": "small",
+        "options": [
+          {
+            "label": "Small",
+            "value": "small"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Large",
+            "value": "large"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_home_page_only",
+        "label": "Show on home page only",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_bar_text",
+        "label": "Announcement text",
+        "default": "Announce something here"
+      },
+      {
+        "type": "url",
+        "id": "announcement_bar_link",
+        "label": "Announcement link",
+        "info": "Optional"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 450,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 250
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu",
+        "default": "main-menu"
+      }
+    ],
+        "blocks": [
+          {
+            "type": "image",
+            "name": "Image slide",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+              },
+              {
+                "type": "image_picker",
+                "id": "image_mobile",
+                "label": "Image (Mobile View)"
+              },
+              {
+                "type": "select",
+                "id": "alignment",
+                "label": "Image alignment",
+                "default": "top",
+                "options": [
+                  {
+                    "value": "top",
+                    "label": "Top"
+                  },
+                  {
+                    "value": "center",
+                    "label": "Middle"
+                  },
+                  {
+                    "value": "bottom",
+                    "label": "Bottom"
+                  }
+                ]
+              },
+              {
+                "type": "select",
+                "id": "justification",
+                "label": "Text justification",
+                "default": "center",
+                "options": [
+                  {
+                    "value": "left",
+                    "label": "Left"
+                  },
+                  {
+                    "value": "center",
+                    "label": "Center"
+                  },
+                  {
+                    "value": "right",
+                    "label": "Right"
+                  }
+                ]
+              },
+              {
+                "type": "product",
+                "id": "slider_product",
+                "label": "Featured Product (controls CTA link)"
+              },
+              {
+                "type": "image_picker",
+                "id": "slider_product_image",
+                "label": "Custom Image for slider (overrides previous field)"
+              },
+              {
+                "type": "text",
+                "id": "cta_text",
+                "label": "Slide CTA text"
+              },
+              {
+                "type": "color",
+                "id": "color_image_overlay",
+                "label": "Image Overlay",
+                "default": "#fff"
+              },
+              {
+                "type": "range",
+                "id": "color_image_opacity",
+                "label": "Image Overlay Opacity",
+                "default": 20,
+                "min": 1,
+                "max": 100
+              },
+              {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Image slide"
+              },
+              {
+                "type": "text",
+                "id": "subheading",
+                "label": "Subheading",
+                "default": "Tell your brand's story through video and images"
+              },
+              {
+                "type": "color",
+                "id": "bottom_box_color",
+                "label": "Mobile View Background Color"
+              }
+            ]
+          }
+          ],
+          "presets": [
+          {
+            "name": "header-alternate Alpine",
+            "category": "Headers"
+          }
+          ]
+          }
+
+
+{% endschema %}
+
+                <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "Organization",
+                  "name": "{{ shop.name }}",
+                  {% if section.settings.logo %}
+                  {% assign image_size = section.settings.logo.width | append:'x' %}
+                  "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+                  {% endif %}
+                  "sameAs": [
+                  "{{ settings.social_twitter_link }}",
+                  "{{ settings.social_facebook_link }}",
+                  "{{ settings.social_pinterest_link }}",
+                  "{{ settings.social_instagram_link }}",
+                  "{{ settings.social_tumblr_link }}",
+                  "{{ settings.social_snapchat_link }}",
+                  "{{ settings.social_youtube_link }}",
+                  "{{ settings.social_vimeo_link }}"
+                  ],
+                  "url": "{{ shop.url }}{{ page.url }}"
+                }
+                </script>
+
+                {% if template.name == 'index' %}
+                <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "WebSite",
+                  "name": "{{ shop.name }}",
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "{{ shop.url }}/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                    },
+                    "url": "{{ shop.url }}{{ page.url }}"
+                  }
+                  </script>
+                  {% endif %}
