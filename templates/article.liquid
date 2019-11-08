@@ -1,16 +1,6 @@
-{% if article.url contains "alpine" %}
   {% layout 'alpine' %} 
-  {% section "pre-header" %}
   {% section 'header-article-alpine' %}
-{% elsif article.url contains "chasen" %}
-  {% layout 'chasen' %}
-  {% section "pre-header" %}
-  {% section 'header-article-chasen' %}
-{% else %}
-  {% layout 'theme' %}
-  {% section "pre-header" %}
-  {% section 'header-article-pangea' %}
-{% endif %}
+
 
 {%- comment -%}
   In order to avoid showing "success" message when we post comments

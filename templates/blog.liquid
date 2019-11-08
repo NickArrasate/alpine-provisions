@@ -1,17 +1,6 @@
 
-{% if blog.url contains "alpine" %}
   {% layout 'alpine' %}
-  {% section "pre-header" %}
   {% section 'header-blogs-alpine' %}
-{% elsif blog.url contains "chasen" %}
-  {% layout 'chasen' %}
-  {% section "pre-header" %}
-  {% section 'header-blogs-chasen' %}
-{% else %}
-  {% layout 'theme' %}
-  {% section "pre-header" %}
-  {% section 'header-blogs-pangea' %}
-{% endif %}
 
 {% paginate blog.articles by 12 %}
 
