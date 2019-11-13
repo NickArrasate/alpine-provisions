@@ -1,5 +1,5 @@
 <div class="brand-navbar d-flex align-items-center justify-content-between brand-nav {% if page.url contains "/collections/" %}collection-brands{% endif %}" style="position: relative; z-index: 10;">
-  <ul class="brand-list" style="margin-bottom: 0;">
+  {% comment %} <ul class="brand-list" style="margin-bottom: 0;">
     <li>
       <a href="/">
         <img class="lazyload po" alt="shop Pangea Organics" src="{{ 'PANGEA_LOGO_2018.png' | asset_url }}"/>
@@ -15,7 +15,7 @@
         <img class="lazyload cs" alt="shop Chasen + Stone" src="{{ 'chasen-brand-logo.png' | asset_url }}"/>
       </a>
     </li>
-  </ul>
+  </ul> {% endcomment %}
   <div class="d-flex align-items-center justify-content-end top-nav">
     <form action="/search" method="get" role="search" class="input-group header-search d-flex align-items-center justify-content-end" >
       <div class="input-group-prepend">
