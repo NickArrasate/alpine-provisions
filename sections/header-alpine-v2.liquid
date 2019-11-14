@@ -54,7 +54,7 @@ Theme Store optional settings
         <div class="slideshow__text-content small-show" style="background-color: {{ block.settings.bottom_box_color }};">
               <div class="page-width">
                 {% unless block.settings.title == blank %}
-                  <h2 class="h1 mega-title slideshow__title{% if settings.link != blank %} slideshow__title--has-link{% endif %}{% if section.settings.text_size == 'large' %} mega-title--large{% endif %} {% if block.settings.text_dark_lower  == 'dark' %}text-dark{% endif %}">
+                  <h2 class="h1 mega-title slideshow__title{% if settings.link != blank %} slideshow__title--has-link{% endif %}{% if section.settings.text_size == 'large' %} mega-title--large{% endif %} {% if block.settings.text_dark_lower  == 'dark' %}text-dark{% else %}text-light{% endif %}">
                     {{ block.settings.title | escape }}
                   </h2>
                 {% endunless %}
