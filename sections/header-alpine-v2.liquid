@@ -41,7 +41,7 @@ Theme Store optional settings
                   </h2>
                 {% endunless %}
                 {% unless block.settings.subheading == blank %}
-                  <span class="mega-subtitle slideshow__subtitle{% if section.settings.text_size == 'large' %} mega-subtitle--large{% endif %} {% if block.settings.text_dark == 'dark' %}text-dark{% endif %}">
+                  <span class="mega-subtitle slideshow__subtitle{% if section.settings.text_size == 'large' %} mega-subtitle--large{% endif %} {% if block.settings.text_dark == 'dark' %}text-dark{% else %}text-light{% endif %}">
                     {{ block.settings.subheading | escape }}
                   </span>
                 {% endunless %}
@@ -59,7 +59,7 @@ Theme Store optional settings
                   </h2>
                 {% endunless %}
                 {% unless block.settings.subheading == blank %}
-                  <span class="mega-subtitle slideshow__subtitle{% if section.settings.text_size == 'large' %} mega-subtitle--large{% endif %} {% if block.settings.text_dark_lower  == 'dark' %}text-dark{% endif %}">
+                  <span class="mega-subtitle slideshow__subtitle{% if section.settings.text_size == 'large' %} mega-subtitle--large{% endif %} {% if block.settings.text_dark_lower  == 'dark' %}text-dark{% else %}text-light{% endif %}">
                     {{ block.settings.subheading | escape }}
                   </span>
                 {% endunless %}
@@ -285,7 +285,7 @@ Theme Store optional settings
               {
                 "type":      "radio",
                 "id":        "text_dark_lower",
-                "label":     "Text Color Upper",
+                "label":     "Text Color Lower",
                 "options": [
                   { "value": "dark", "label": "Dark" },
                   { "value": "light", "label": "Light" }
